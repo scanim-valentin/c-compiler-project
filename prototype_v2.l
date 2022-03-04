@@ -1,23 +1,29 @@
+%{
+#include <stdlib.h>
+#include <stdio.h>
+
+%}
 %option noyywrap
 %%
 [ \t]+$ {}; /*Ignoring spaces at the end of a line*/
-[ \t]+ return 0; /*Replacing multiple spaces with a single space*/
-[a-zA-Z][a-zA-Z0-9]* {return yytext ;} /*detecting variables*/
-int[ \t]+[a-zA-Z][a-zA-Z0-9]* return tINT ; /*Detecting integers*/
-const[ \t]+[a-zA-Z][a-zA-Z0-9]*; return 3 ; 
-"{" return 4 ;
-"}" return 5 ;
-"main()" return 6 ;
-"+" return 7 ;
-"-" return 8 ;
-"*" return 9;
-"/" return 10;
-"=" return 11;
-"(" return 12;
-")" return 13;
-"\n" return 14 ;
-[0-9]+ { yylval.val = atoi(yytext) ; return  ;};
-[0-9]+E[0-9]+ { return atof(yytext) ;} ;
+[ \t]+ return tkSpace; /*Replacing multiple spaces with a single space*/
+[a-zA-Z][a-zA-Z0-9]* {yyval.text = malloc(sizeof(char)*strlen(yytex)) ; strcpy(yyval.text,yytext) ; return tkVariable ;} /*detecting variables*/
+int[ \t]+[a-zA-Z][a-zA-Z0-9]* return tDeclareInt ; /*Detecting integers*/
+const[ \t]+[a-zA-Z][a-zA-Z0-9]*; {return tDeclareConstInt} ; /*Detecting integer const declaration*/
+[0-9]+ { yylval.val = atoi(yytext) ; return tValueInt ;}; /*Detecting integer values*/
+[0-9]+E[0-9]+ { yyval.val = atof(yytext) ; return tValueExp ;} ; /*Detecting doubles values in scientific notation*/
+"{" return tOpeningBracket  ;
+"}" return tClosingInt  ;
+"main()" return tMain  ;
+"+" return tPlus ;
+"-" return tMinus ;
+"*" return tMult ;
+"/" return tDiv ;
+"=" return tEqual ;
+"(" return tOpeningParenthesis ;
+")" return tClosingParenthesis ;
+"\n" return tNewline ;
+
 %%
 
     int main(){
