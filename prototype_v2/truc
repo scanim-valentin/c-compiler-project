@@ -1,0 +1,3 @@
+/*[a-zA-Z][a-zA-Z0-9]* {yylval.text = malloc(sizeof(char)*yyleng) ; strcpy(yylval.text,yytext) ; return tkVariable ;}  */
+/* [0-9]+ { yylval.val = atoi(yytext) ; return tValueInt ;}; /*Detecting integer values*/ */
+/* [0-9]+E[0-9]+ { yylval.val = atof(yytext) ; return tValueExp ;} ; /*Detecting doubles values in scientific notation*/ */
