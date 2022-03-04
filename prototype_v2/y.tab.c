@@ -103,7 +103,10 @@ void yyerror(char *s);
 # define YYERROR_VERBOSE 0
 #endif
 
-
+/* Use api.header.include to #include this header
+   instead of duplicating it here.  */
+#ifndef YY_YY_Y_TAB_H_INCLUDED
+# define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -162,7 +165,7 @@ union YYSTYPE
 #line 10 "prototype_v2.y"
  int nb; char * var; double nb_exp; 
 
-#line 166 "y.tab.c"
+#line 169 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -175,7 +178,7 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-
+#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
 
 
 
@@ -481,16 +484,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   7
+#define YYLAST   11
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  20
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  3
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  4
+#define YYNRULES  6
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  11
+#define YYNSTATES  15
 
 #define YYUNDEFTOK  2
 #define YYMAXUTOK   274
@@ -539,7 +542,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    14,    14,    18,    18
+       0,    14,    14,    18,    23,    28,    33
 };
 #endif
 
@@ -566,7 +569,7 @@ static const yytype_int16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF (-15)
+#define YYPACT_NINF (-12)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -580,8 +583,8 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -7,    -4,     2,     0,   -15,   -14,    -1,   -10,   -15,     0,
-     -15
+      -2,    -1,     6,    -3,   -12,   -11,   -10,     3,    -6,    -5,
+     -12,    -3,    -3,   -12,   -12
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -589,20 +592,20 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     0,     1,     0,     0,     0,     2,     4,
-       3
+       0,     0,     0,     0,     1,     0,     0,     0,     0,     0,
+       2,     6,     5,     3,     4
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -15,   -15,    -2
+     -12,   -12,    -9
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     6
+      -1,     2,     7
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -610,32 +613,34 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,     3,     4,     5,     7,     8,     9,    10
+       5,     6,    13,    14,     3,     1,     4,     8,     9,    10,
+      11,    12
 };
 
 static const yytype_int8 yycheck[] =
 {
-       7,     5,     0,     3,    18,     6,    16,     9
+       3,     4,    11,    12,     5,     7,     0,    18,    18,     6,
+      16,    16
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     7,    21,     5,     0,     3,    22,    18,     6,    16,
-      22
+       0,     7,    21,     5,     0,     3,     4,    22,    18,    18,
+       6,    16,    16,    22,    22
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    20,    21,    22,    22
+       0,    20,    21,    22,    22,    22,    22
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     4,     4,     3
+       0,     2,     4,     4,     4,     3,     3
 };
 
 
@@ -1334,19 +1339,47 @@ yyreduce:
 #line 15 "prototype_v2.y"
                 { printf("Main trouve\n");
                 }
-#line 1338 "y.tab.c"
+#line 1343 "y.tab.c"
+    break;
+
+  case 3:
+#line 19 "prototype_v2.y"
+            { printf("Declaration trouve: ");
+              printf((yyvsp[-2].var));
+              printf("\n");
+            }
+#line 1352 "y.tab.c"
     break;
 
   case 4:
-#line 19 "prototype_v2.y"
-            { printf("Declaration trouve\n");
-              printf((yyvsp[-1].var));
+#line 24 "prototype_v2.y"
+            { printf("Declaration const trouve: ");
+              printf((yyvsp[-2].var));
+              printf("\n");
             }
-#line 1346 "y.tab.c"
+#line 1361 "y.tab.c"
+    break;
+
+  case 5:
+#line 29 "prototype_v2.y"
+            { printf("Declaration const trouve, final: ");
+              printf((yyvsp[-1].var));
+              printf("\n");
+            }
+#line 1370 "y.tab.c"
+    break;
+
+  case 6:
+#line 34 "prototype_v2.y"
+            { printf("Declaration int trouve, final: ");
+              printf((yyvsp[-1].var));
+              printf("\n");
+            }
+#line 1379 "y.tab.c"
     break;
 
 
-#line 1350 "y.tab.c"
+#line 1383 "y.tab.c"
 
       default: break;
     }
@@ -1578,7 +1611,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 27 "prototype_v2.y"
+#line 43 "prototype_v2.y"
 
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
 int main(){

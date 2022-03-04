@@ -15,8 +15,23 @@ void yyerror(char *s);
                 { printf("Main trouve\n");
                 }  
              ;
-    CORPS : tDeclareInt tVarName tPointVirgule CORPS | tDeclareInt tVarName tPointVirgule
-            { printf("Declaration trouve\n");
+    CORPS : tDeclareInt tVarName tPointVirgule CORPS 
+            { printf("Declaration trouve: ");
+              printf($2);
+              printf("\n");
+            } 
+            | tDeclareConstInt tVarName tPointVirgule CORPS
+            { printf("Declaration const trouve: ");
+              printf($2);
+              printf("\n");
+            } 
+            | tDeclareConstInt tVarName tPointVirgule
+            { printf("Declaration const trouve, final: ");
+              printf($2);
+              printf("\n");
+            } 
+            | tDeclareInt tVarName tPointVirgule
+            { printf("Declaration int trouve, final: ");
               printf($2);
               printf("\n");
             } 
@@ -26,6 +41,12 @@ void yyerror(char *s);
 
 
 %%
+/*
+typedef struc cell{
+    char * name ;
+    int * value
+    struct cell * ;
+} Cell */
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
 int main(){
     printf("Resultat de la compilation : \n") ; 
