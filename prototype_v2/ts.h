@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 typedef struct symb{
     char * Nom ; 
@@ -16,7 +17,13 @@ typedef struct{
 } TdS ; 
 
 TdS table_des_symbolles = { NULL, NULL } ; 
+
 void push_TdS(char * Nom, char * Type, int Scope) ; 
 Symbolle pop_TdS() ;
 Symbolle * getLastAdded_TdS() ;
 Symbolle * getSymbolle_TdS(char * Nom, int Scope) ;  
+
+void print_TdS() ;
+void print_Symbolle() ;
+
+

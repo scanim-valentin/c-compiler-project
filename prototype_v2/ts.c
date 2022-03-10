@@ -31,7 +31,7 @@ Symbolle pop_TdS(){
 
 Symbolle * getSymbolle_TdS(char * Nom, int Scope){
     Symbolle * aux = table_des_symbolles.first;  
-    while(aux->next != NULL){ 
+    while( aux->next != NULL ){
         if(strcmp(aux->Nom,Nom))
             return aux ;
         aux = aux->next ;  
@@ -41,4 +41,17 @@ Symbolle * getSymbolle_TdS(char * Nom, int Scope){
 
 Symbolle * getLastAdded_TdS(){
     return table_des_symbolles.first ;
+}
+
+void print_Symbolle(Symbolle * S){
+    if(S == NULL)
+        printf("{}") ;
+    else
+        printf("{ Name: %s | Offset: %d | Type: %s | Scope: %d }\n", S->Nom, S->offset, S->Type, S->scope) ;
+
+}
+
+void print_TdS(){
+    Symbolle * aux = table_des_symbolles.first;
+    while( aux->next != NULL ) print_Symbolle(aux);
 }
