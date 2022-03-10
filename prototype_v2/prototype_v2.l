@@ -17,8 +17,12 @@
 "=" return tEqual ;
 "(" return tOpeningParenthesis ;
 ")" return tClosingParenthesis ;
+"," return tVirgule;
 "\;" return tPointVirgule;
-
+"if" return tIf;
+"else" return tElse;
+"while" return tWhile;
+"printf" return tPrintf;
 "int" return tDeclareInt ;
 "const" return tDeclareConstInt ; /*Detecting integer const declaration*/
 [a-zA-Z][a-zA-Z0-9]* {yylval.var = malloc(yyleng); strcpy(yylval.var,yytext) ; return tVarName ;} ; /*Detecting integers*/
