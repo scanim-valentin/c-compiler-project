@@ -1,29 +1,19 @@
+#ifndef ts
+#define ts
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
-typedef struct symb{
-    char * Nom ; 
-    int offset ;
-    char * Type ; 
-    int scope ;
-    struct symb * next ;   
-} Symbolle ; 
-
-typedef struct{
-    Symbolle * first ; 
-    Symbolle * last ; 
-    int taille ; 
-} TdS ; 
-
-TdS table_des_symbolles = { NULL, NULL } ; 
-
 void push_TdS(char * Nom, char * Type, int Scope) ; 
-Symbolle pop_TdS() ;
-Symbolle * getLastAdded_TdS() ;
-Symbolle * getSymbolle_TdS(char * Nom, int Scope) ;  
+
+//On retourne l'offset
+int pop_TdS() ; //Offset du dernier + depilage
+int getLastAdded_TdS() ; //Offset du dernier 
+int getOffset_TdS(char * Nom) ; //Offset du symbole recherché 
 
 void print_TdS() ;
 void print_Symbolle() ;
+void arith(char* op) ;
 
-
+#endif

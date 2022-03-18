@@ -1,6 +1,7 @@
 %{
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "ts.h"
 void yyerror(char *s);
 
@@ -11,37 +12,9 @@ void yyerror(char *s);
 %token <nb> tValueInt
 %token <var> tVarName
 %token <nb_exp> tValueExp
+%type <var>  DeclarationType VarName  
 %union { int nb; char * var; double nb_exp; } 
 %start PROGRAMME
-
-/* ANCIENNE VERSION
-%%
-    PROGRAMME : tMain tOpeningBracket CORPS tClosingBracket
-                { printf("Main trouve\n");
-                }  
-             ;
-    CORPS : Ligne COPRS |
-
-    Ligne : ( Declaration | Operation | Printf | Bloc) tPointVirgule
-
-    Printf : tPrintf tOpeningParenthesis tVarName tClosingParenthesis
-
-    Declaration : ( tDeclareConstInt | tDeclareInt ) VarDeclaration  ( | Assign)
-
-    VarDeclaration : tVarName ( | tVirgule VarDeclaration)
-
-    Operation : tVarName Assign
-
-    Assign : tEqual Rval ( | Arithmetique Rval )
-
-    Rval : tVarName | tValueInt | tValueExp
-
-    Bloc : (|tIf CondBloc (|tElse Bloc)| tWhile CondBloc) 
-
-    CondBloc : tOpeningParenthesis Condition tClosingParenthesis tOpeningBracket CORPS tClosingBracket
-   
-%%
- */
 
 %%
     PROGRAMME : tMain Bloc
@@ -57,24 +30,38 @@ void yyerror(char *s);
     ContenuLigne : Declaration | Assignation | Printf | InstructionIfElse | InstructionWhile ;
 
     InstructionIfElse : tIf tOpeningParenthesis Val tClosingParenthesis Bloc InstructionElse ;
-    InstructionElse :  | tElse Bloc ;
+    InstructionElse : tElse Bloc | ;
 
     InstructionWhile : tWhile tOpeningParenthesis Val tClosingParenthesis Bloc ;
 
-    Printf : tPrintf tOpeningParenthesis tVarName tClosingParenthesis ;
+    Printf : tPrintf tOpeningParenthesis Val tClosingParenthesis ;
 
-    Declaration : DeclarationType VarName Assign ;
-    DeclarationType : tDeclareConstInt | tDeclareInt ;
+    Declaration : DeclarationType VarName Assign {  printf("Push: \n"); push_TdS($2, $1,0); print_TdS() ; }
+                ;
+    DeclarationType : tDeclareConstInt { $$ = "Const Int" ; }
+                    | tDeclareInt { $$ = "Int" ; }
+                ;
 
-    VarName : tVarName | tVarName tVirgule VarName ;
+    VarName : tVarName tVirgule VarName { $$ = $1 ;}
+            | tVarName { }
+            ;
 
-    Assignation : tVarName Assign ;
+    Assignation : tVarName Assign { Parse_Move($1,$2) ; }
+                | tVarName
+                ;
+    Assign : tEqual Val { $$ = $2 ;}
 
-    Assign : | tEqual Val;
-
-    Val : tVarName | tValueInt | tValueExp | Arithmetique ;
-    Arithmetique : Val Operator Val ;
-    Operator : tPlus | tMinus | tMult | tDiv ;
+    Val : tVarName { $$ = getOffset_TdS($1) ; }
+        | tValueInt { $$ = $1 ; }
+        | tValueExp { $$ = $1 ; }
+        | Arithmetique { $$ = $1 ; }
+        ;
+    Arithmetique : Val Operator Val {arith($2);};
+    Operator : tPlus
+            | tMinus
+            | tMult
+            | tDiv
+            ;
 
 %%
 
