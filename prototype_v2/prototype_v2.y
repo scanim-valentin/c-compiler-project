@@ -7,19 +7,22 @@ void yyerror(char *s);
 
 #define TAILLE_ZONE_MEMOIRE_VAR 1000 ;
 #define TAILLE_ZONE_MEMOIRE_TEMP 1000 ;
+
+Parse_Init("ASM_file") ;
+
 %}
 %token tDeclareInt  tDeclareConstInt tOpeningBracket tClosingBracket tWhile tElse tIf tMain  tPlus  tMinus  tMult  tDiv  tEqual  tOpeningParenthesis  tClosingParenthesis  tNewline tPointVirgule tVirgule tPrintf
 %token <nb> tValueInt
 %token <var> tVarName
 %token <nb_exp> tValueExp
+%type <nb> Assign
 %type <var>  DeclarationType VarName  
-%union { int nb; char * var; double nb_exp; } 
+%type <op> Operator
+%union { int nb; char * var; double nb_exp; ASM op; }
 %start PROGRAMME
 
 %%
-    PROGRAMME : tMain Bloc
-                { printf("Main trouve\n");
-                }
+    PROGRAMME : tMain Bloc { Parse_End(); }
              ;
 
     Bloc : tOpeningBracket Corps tClosingBracket | Ligne ;
@@ -36,31 +39,33 @@ void yyerror(char *s);
 
     Printf : tPrintf tOpeningParenthesis Val tClosingParenthesis ;
 
-    Declaration : DeclarationType VarName Assign {  printf("Push: \n"); push_TdS($2, $1,0); print_TdS() ; }
+    Declaration : DeclarationType VarName Assign { push_TdS($2, $1,0) ; }
                 ;
     DeclarationType : tDeclareConstInt { $$ = "Const Int" ; }
                     | tDeclareInt { $$ = "Int" ; }
                 ;
 
-    VarName : tVarName tVirgule VarName { $$ = $1 ;}
-            | tVarName { }
+    VarName : tVarName tVirgule VarName { $$ = $1 ;} //????
+            | tVarName { $$ = $1 }
             ;
 
-    Assignation : tVarName Assign { Parse_Move($1,$2) ; }
+    Assignation : tVarName Assign { Parse_Affect($1,$2) ; }
                 | tVarName
                 ;
     Assign : tEqual Val { $$ = $2 ;}
+            |
+            ;
 
     Val : tVarName { $$ = getOffset_TdS($1) ; }
         | tValueInt { $$ = $1 ; }
         | tValueExp { $$ = $1 ; }
         | Arithmetique { $$ = $1 ; }
         ;
-    Arithmetique : Val Operator Val {arith($2);};
-    Operator : tPlus
-            | tMinus
-            | tMult
-            | tDiv
+    Arithmetique : Val Operator Val { Parse_Arith($2); };
+    Operator : tPlus { $$ = ADD ; }
+            | tMinus { $$ = SUB ; }
+            | tMult  { $$ = MUL ; }
+            | tDiv   { $$ = DIV ; }
             ;
 
 %%

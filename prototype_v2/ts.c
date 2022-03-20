@@ -16,8 +16,9 @@ typedef struct{
 
 TdS table_des_symbolles = { NULL, NULL } ; 
 int Profondeur = 0;
+char nb_variables_temporaires = 0;
 
-void push_TdS(char * Nom, char * Type, int Scope){
+int push_TdS(char * Nom, char * Type, int Scope){
     Symbolle * S = malloc(sizeof(Symbolle)) ; 
     S->next = table_des_symbolles.first;
     if(table_des_symbolles.first != NULL)
@@ -33,6 +34,15 @@ void push_TdS(char * Nom, char * Type, int Scope){
     S->Type = strdup(Type)  ; 
     S->scope = Scope ;
 
+    return S->offset ;
+
+}
+
+int pushTemp_TdS(char * Type, int Scope){
+    nb_variables_temporaires ++ ;
+    char nom[] = "temp_0" ;
+    nom[6] = nb_variables_temporaires ;
+    return push_TdS(nom, Type, Scope) ;
 }
 
 int pop_TdS(){
@@ -45,6 +55,11 @@ int pop_TdS(){
     }else{
         exit(-1) ; //Gros problème donc erreur    
     }
+}
+
+int popTemp_TdS(){
+    nb_variables_temporaires -- ;
+    return pop_TdS() ;
 }
 
 int getOffset_TdS(char * Nom){

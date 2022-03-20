@@ -5,10 +5,14 @@
 #include <string.h>
 #include <stdio.h>
 
-void push_TdS(char * Nom, char * Type, int Scope) ; 
+int push_TdS(char * Nom, char * Type, int Scope) ;
+int pushTemp_TdS(char * Type, int Scope) ;
+
 
 //On retourne l'offset
 int pop_TdS() ; //Offset du dernier + depilage
+int popTemp_TdS(char * Type, int Scope) ;
+
 int getLastAdded_TdS() ; //Offset du dernier 
 int getOffset_TdS(char * Nom) ; //Offset du symbole recherché 
 
