@@ -13,7 +13,6 @@ void Parse_Init(char * name){
     file = fopen(name, "w") ;
     file_easy_reading = fopen(strcat(name,"_EasyReading"), "w") ;
     printf("Created assembly file %s\n",name) ;
-
 }
 
 //Fermeture du fichier après compilation
@@ -27,6 +26,7 @@ void Parse_End(){
 
 // Instructions à 3 opérandes
 void Parse_Instruction_3(ASM Instruct, int P1, int P2, int P3){
+
     fwrite(&Instruct, sizeof(int), 1, file) ;
     fwrite(&P1, sizeof(int), 1, file) ;
     fwrite(&P2, sizeof(int), 1, file) ;
@@ -41,6 +41,7 @@ void Parse_Instruction_3(ASM Instruct, int P1, int P2, int P3){
 
 // Instructions à 2 opérandes
 void Parse_Instruction_2(ASM Instruct, int P1, int P2){
+
     fwrite(&Instruct, sizeof(int), 1, file) ;
     fwrite(&P1, sizeof(int), 1, file) ;
     fwrite(&P2, sizeof(int), 1, file) ;
@@ -53,6 +54,7 @@ void Parse_Instruction_2(ASM Instruct, int P1, int P2){
 
 // Instructions à 1 opérandes
 void Parse_Instruction_1(ASM Instruct, int P1){
+
     fwrite(&Instruct, sizeof(int), 1, file) ;
     fwrite(&P1, sizeof(int), 1, file) ;
 
@@ -69,8 +71,20 @@ void Parse_Arith(ASM OP) {
     Parse_Instruction_3(OP,ret,P1,P2) ;
 }
 
-void Parse_Affect(char * var_name, int value){
-    int offset = getOffset_TdS(var_name) ;
-    Parse_Instruction_2(AFC, offset, value) ;
+void Parse_Copy_To_TdS_Top(char * var) {
+    int source = getOffset_TdS(var) ;
+    int dest = pushTemp_TdS("int",0);
+    Parse_Instruction_2(COP, dest, source) ;
+}
+
+void Parse_AllocateTemp(int value, char * type){
+    int addr = pushTemp_TdS(type, 0) ;
+    Parse_Instruction_2(AFC, addr, value) ;
+}
+
+void Parse_Copy(char * var_dest){
+    int source = pop_TdS() ;
+    int dest = getOffset_TdS(var_dest) ;
+    Parse_Instruction_2(COP, dest, source) ;
 }
 

@@ -22,9 +22,21 @@ typedef enum{
 } ASM;
 
 //Affection simple (valeur -> memoire)
-void Parse_Affect(char * var_name, int value) ; 
+void Parse_Affect(char * var_name, int var) ;
+
+//Affection simple (valeur -> memoire)
+void Parse_Copy(char * var_name) ;
 
 //Opérations arithmétique et comparaisons
 void Parse_Arith(ASM OP) ;
+
+void Parse_AllocateTemp(int value, char * type) ;
+
+
+void Parse_Copy_To_TdS_Top(char * var) ;
+
+void Parse_Init(char * name);
+
+void Parse_End();
 
 #endif

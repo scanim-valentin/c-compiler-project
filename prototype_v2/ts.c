@@ -62,14 +62,19 @@ int popTemp_TdS(){
     return pop_TdS() ;
 }
 
-int getOffset_TdS(char * Nom){
-    Symbolle * aux = table_des_symbolles.first;  
+Symbolle * getSymbolle_TdS(char * Nom){
+    Symbolle * aux = table_des_symbolles.first;
     while( aux->next != NULL ){
         if(strcmp(aux->Nom,Nom))
-            return aux->offset ;
-        aux = aux->next ;  
+            return aux ;
+        aux = aux->next ;
     }
-    return -1 ; 
+    return NULL ;
+}
+
+int getOffset_TdS(char * Nom){
+    Symbolle * symb = getSymbolle_TdS(Nom) ;
+    return symb != NULL ? symb->offset : -1 ;
 }
 
 int getLastAdded_TdS(){
