@@ -49,7 +49,6 @@ void yyerror(char *s);
             ;
 
     Assignation : tVarName Assign { Parse_Copy($1) ; }
-                | tVarName
                 ;
     Assign : tEqual Val
             |
@@ -60,7 +59,7 @@ void yyerror(char *s);
         | tValueExp { Parse_AllocateTemp($1, "int") ; }
         | Arithmetique
         ;
-    Arithmetique : Val Operator Val { Parse_Arith($2); };
+    Arithmetique : tOpeningParenthesis Val Operator Val tClosingParenthesis { Parse_Arith($3); };
     Operator : tPlus { $$ = ADD ; }
             | tMinus { $$ = SOU ; }
             | tMult  { $$ = MUL ; }
@@ -74,5 +73,6 @@ int main(){
     printf("Resultat de la compilation : \n") ; 
     Parse_Init("ASM_file") ;
     yyparse();
+    printf("Final TdS: \n") ;  print_TdS() ;
     return 0 ;
 }

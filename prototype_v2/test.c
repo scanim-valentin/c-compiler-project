@@ -1,7 +1,4 @@
 main(){
-	int a; 
-	int b;
-	int c;
-	const DDD;
-	a = a + 1 ; 
+	int a = (((1 + 2) * 2) - 9) ;
+	int b = ( a + 1 ) ;
 }

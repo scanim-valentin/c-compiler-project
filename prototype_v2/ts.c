@@ -9,8 +9,8 @@ typedef struct symb{
 } Symbolle ; 
 
 typedef struct{
-    Symbolle * first ; 
-    Symbolle * last ; 
+    Symbolle * top ;
+    Symbolle * bottom ;
     int taille ; 
 } TdS ; 
 
@@ -20,15 +20,15 @@ char nb_variables_temporaires = 0;
 
 int push_TdS(char * Nom, char * Type, int Scope){
     Symbolle * S = malloc(sizeof(Symbolle)) ; 
-    S->next = table_des_symbolles.first;
-    if(table_des_symbolles.first != NULL)
+    S->next = table_des_symbolles.top;
+    if(table_des_symbolles.top != NULL)
     {
         S->offset = S->next->offset + 1 ; 
     }else{
-        table_des_symbolles.last = S ; 
+        table_des_symbolles.bottom = S ;
         S->offset = 1 ;     
     }
-    table_des_symbolles.first = S ;  
+    table_des_symbolles.top = S ;
     table_des_symbolles.taille++ ; 
     S->Nom = strdup(Nom) ; 
     S->Type = strdup(Type)  ; 
@@ -41,16 +41,16 @@ int push_TdS(char * Nom, char * Type, int Scope){
 int pushTemp_TdS(char * Type, int Scope){
     nb_variables_temporaires ++ ;
     char nom[] = "temp_0" ;
-    nom[6] = nb_variables_temporaires ;
+    nom[5] = (char)(48 + nb_variables_temporaires);
     return push_TdS(nom, Type, Scope) ;
 }
 
 int pop_TdS(){
-    if(table_des_symbolles.first != NULL)
+    if(table_des_symbolles.top != NULL)
     {
-        Symbolle ret = *(table_des_symbolles.first) ; 
-        free(table_des_symbolles.first) ;
-        table_des_symbolles.first = ret.next ; 
+        Symbolle ret = *(table_des_symbolles.top) ;
+        free(table_des_symbolles.top) ;
+        table_des_symbolles.top = ret.next ;
         return ret.offset ; 
     }else{
         exit(-1) ; //Gros problème donc erreur    
@@ -63,9 +63,9 @@ int popTemp_TdS(){
 }
 
 Symbolle * getSymbolle_TdS(char * Nom){
-    Symbolle * aux = table_des_symbolles.first;
-    while( aux->next != NULL ){
-        if(strcmp(aux->Nom,Nom))
+    Symbolle * aux = table_des_symbolles.top;
+    while( aux != NULL ){
+        if(!strcmp(aux->Nom,Nom))
             return aux ;
         aux = aux->next ;
     }
@@ -78,7 +78,7 @@ int getOffset_TdS(char * Nom){
 }
 
 int getLastAdded_TdS(){
-    return table_des_symbolles.first->offset ;
+    return table_des_symbolles.top->offset ;
 }
 
 void print_Symbolle(Symbolle * S){
@@ -91,7 +91,7 @@ void print_Symbolle(Symbolle * S){
 
 void print_TdS(){
     printf("print\n");
-    Symbolle * aux = table_des_symbolles.first;
+    Symbolle * aux = table_des_symbolles.top;
     while( aux != NULL ){
         print_Symbolle(aux);
         aux = aux->next ; 
