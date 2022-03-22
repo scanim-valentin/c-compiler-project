@@ -38,8 +38,10 @@ void yyerror(char *s);
 
     Printf : tPrintf tOpeningParenthesis Val tClosingParenthesis ;
 
-    Declaration : DeclarationType VarName Assign { push_TdS($2, $1,0) ; }
+    Declaration : DeclarationType VarName { push_TdS($2, $1,0) ; }
+                | DeclarationType VarName { push_TdS($2, $1,0) ; } tEqual Val { Parse_Copy($2) ; }
                 ;
+
     DeclarationType : tDeclareConstInt { $$ = "const_int" ; }
                     | tDeclareInt { $$ = "int" ; }
                 ;
@@ -48,11 +50,8 @@ void yyerror(char *s);
             | tVarName { $$ = $1 ; }
             ;
 
-    Assignation : tVarName Assign { Parse_Copy($1) ; }
+    Assignation : tVarName tEqual Val { printf("AAAAAAAAAA\n") ; Parse_Copy($1) ; }
                 ;
-    Assign : tEqual Val
-            |
-            ;
 
     Val : tVarName { Parse_Copy_To_TdS_Top($1) ; }
         | tValueInt { Parse_AllocateTemp($1, "int") ; }
@@ -60,6 +59,7 @@ void yyerror(char *s);
         | Arithmetique
         ;
     Arithmetique : tOpeningParenthesis Val Operator Val tClosingParenthesis { Parse_Arith($3); };
+    
     Operator : tPlus { $$ = ADD ; }
             | tMinus { $$ = SOU ; }
             | tMult  { $$ = MUL ; }

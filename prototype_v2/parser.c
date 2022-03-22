@@ -27,35 +27,12 @@ void Parse_End(){
 
 
 // Instructions à 3 opérandes
-void Parse_Instruction_3(ASM Instruct, int P1, int P2, int P3){
+void Parse_Instruction(ASM Instruct, int P1, int P2, int P3){
 
-    fwrite(&Instruct, sizeof(int), 1, file) ;
-    fwrite(&P1, sizeof(int), 1, file) ;
-    fwrite(&P2, sizeof(int), 1, file) ;
-    fwrite(&P3, sizeof(int), 1, file) ;
+    fprintf(file, "%c%c%c%c", Instruct, P1, P2, P3) ;
 
     //Partie en lecture facile
     fprintf(file_easy_reading, "%s %d %d %d\n", ASM_EasyReading[Instruct-1], P1, P2, P3) ;
-}
-
-// Instructions à 2 opérandes
-void Parse_Instruction_2(ASM Instruct, int P1, int P2){
-
-    fwrite(&Instruct, sizeof(int), 1, file) ;
-    fwrite(&P1, sizeof(int), 1, file) ;
-    fwrite(&P2, sizeof(int), 1, file) ;
-
-    //Partie en lecture facile
-    fprintf(file_easy_reading, "%s %d %d\n", ASM_EasyReading[Instruct-1], P1, P2) ;
-}
-
-// Instructions à 1 opérandes
-void Parse_Instruction_1(ASM Instruct, int P1){
-
-    fwrite(&Instruct, sizeof(int), 1, file) ;
-    fwrite(&P1, sizeof(int), 1, file) ;
-    //Partie en lecture facile
-    fprintf(file_easy_reading, "%s %d\n", ASM_EasyReading[Instruct-1], P1) ;
 }
 
 //On écrit l'instruction à partir des adresses du sommet de la pile
@@ -63,26 +40,30 @@ void Parse_Arith(ASM OP) {
     int P1 = popTemp_TdS() ;
     int P2 = popTemp_TdS() ;
     int ret = pushTemp_TdS("int", 0) ; //A changer plus tard
-    Parse_Instruction_3(OP,ret,P2,P1) ; // !! P2 - P1
+    Parse_Instruction(OP,ret,P2,P1) ; // !! P2 - P1
 }
 
 void Parse_Copy_To_TdS_Top(char * var) {
     int source = getOffset_TdS(var) ;
     int dest = pushTemp_TdS("int",0);
-    Parse_Instruction_2(COP, dest, source) ;
+    Parse_Instruction(COP, dest, source, 0) ; 
+}
+
+int Parse_getValue(char * var) {
+    int source = getOffset_TdS(var) ; 
 }
 
 void Parse_AllocateTemp(int value, char * type){
     int addr = pushTemp_TdS(type, 0) ;
-    Parse_Instruction_2(AFC, addr, value) ;
-    print_TdS() ;
+    Parse_Instruction(AFC, addr, value, 0) ;
 }
 
 void Parse_Copy(char * var_dest){
     int source = popTemp_TdS() ;
     int dest = getOffset_TdS(var_dest) ;
-    Parse_Instruction_2(COP, dest, source) ;
+    Parse_Instruction(COP, dest, source, 0) ;
 
+    printf("*%s = %d\n", var_dest, dest) ; 
     printf("copy %s %d %d \n", var_dest, source, dest) ;  print_TdS() ;
 }
 
