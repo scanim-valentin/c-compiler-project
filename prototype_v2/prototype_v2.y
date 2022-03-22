@@ -31,12 +31,15 @@ void yyerror(char *s);
     Ligne : ContenuLigne tPointVirgule ;
     ContenuLigne : Declaration | Assignation | Printf | InstructionIfElse | InstructionWhile ;
 
-    InstructionIfElse : tIf tOpeningParenthesis Val tClosingParenthesis Bloc InstructionElse ;
+    InstructionIfElse : tIf tOpeningParenthesis Val tClosingParenthesis { Parse_If() ; } Bloc { Parse_Else() ; } InstructionElse { Parse_EndElse() ; };  
+    
     InstructionElse : tElse Bloc | ;
 
-    InstructionWhile : tWhile tOpeningParenthesis Val tClosingParenthesis Bloc ;
+    InstructionWhile : tWhile tOpeningParenthesis Val tClosingParenthesis Bloc
+                    ;
 
-    Printf : tPrintf tOpeningParenthesis Val tClosingParenthesis ;
+    Printf : tPrintf tOpeningParenthesis Val tClosingParenthesis { Parse_printf() ; } 
+            ;
 
     Declaration : DeclarationType VarName { push_TdS($2, $1,0) ; }
                 | DeclarationType VarName { push_TdS($2, $1,0) ; } tEqual Val { Parse_Copy($2) ; }
@@ -46,11 +49,11 @@ void yyerror(char *s);
                     | tDeclareInt { $$ = "int" ; }
                 ;
 
-    VarName : tVarName tVirgule VarName { $$ = $1 ;} //????
+    VarName : tVarName tVirgule VarName { $$ = $1 ;}
             | tVarName { $$ = $1 ; }
             ;
 
-    Assignation : tVarName tEqual Val { printf("AAAAAAAAAA\n") ; Parse_Copy($1) ; }
+    Assignation : tVarName tEqual Val { Parse_Copy($1) ; }
                 ;
 
     Val : tVarName { Parse_Copy_To_TdS_Top($1) ; }

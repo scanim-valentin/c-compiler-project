@@ -39,4 +39,11 @@ void Parse_Init(char * name);
 
 void Parse_End();
 
+void Parse_printf();
+
+void Parse_If() ;
+
+void Parse_Else() ;
+
+void Parse_EndElse() ;
 #endif

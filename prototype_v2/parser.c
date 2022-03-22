@@ -3,10 +3,16 @@
 #include "string.h"
 
 //correspondance entre ASM et la string correspondante
-char* ASM_EasyReading[] = { "ADD", "MUL", "SOU", "DIV", "COP", "AFC", "JMP", "JPF", "INF", "SUP", "EQU", "PRI" } ;
+char* ASM_EasyReading[] = { "ADD", "MUL", "SOU", "DIV", "COP", "AFC", "JMP", "JMF", "INF", "SUP", "EQU", "PRI" } ;
 
 FILE* file ; //Fichier qui contient les instructions codées tel qu'indiqué dans le sujet
 FILE* file_easy_reading ; //Fichier qui contient les instructions sous forme de mots pour faciliter la lecture
+
+long position_debut ;
+long position_fin ;
+
+long position_debut_easy_reading ;
+long position_fin_easy_reading ;
 
 //Création du fichier qui va accueillir le code compilé
 void Parse_Init(char * name){
@@ -67,3 +73,45 @@ void Parse_Copy(char * var_dest){
     printf("copy %s %d %d \n", var_dest, source, dest) ;  print_TdS() ;
 }
 
+void Parse_printf() {
+    int source = popTemp_TdS() ;
+    Parse_Instruction(PRI, source, 0, 0) ;
+}
+
+void Parse_If() {
+    int cond = pop_TdS();
+    Parse_Instruction(JMF, cond, -1, 0) ;
+    position_debut = ftell(file) ;
+}
+
+void Parse_Else() {
+    Parse_Instruction(JMP, 0, 0, 0) ;
+    position_fin = ftell(file) ; 
+    fseek(file, position_debut-2, 0) ;
+    fprintf(file, "%c", position_fin) ;
+    fseek(file, 0, 2) ;
+    position_debut = position_fin ; 
+
+    //Easy reading
+    Parse_Instruction(JMP, 0, 0, 0) ;
+    position_fin_easy_reading = ftell(file_easy_reading) ; 
+    fseek(file_easy_reading, position_debut_easy_reading-2, 0) ;
+    fprintf(file_easy_reading, "%c", position_fin_easy_reading) ;
+    fseek(file_easy_reading, 0, 2) ;
+    position_debut_easy_reading = position_fin_easy_reading ; 
+}
+
+void Parse_EndElse() {
+    position_fin = ftell(file) ; 
+    fseek(file, position_debut-3, 0) ;
+    fprintf(file, "%c", position_fin) ;
+    fseek(file, 0, 2) ;
+
+    //Easy reading
+    position_fin_easy_reading = ftell(file_easy_reading) ; 
+    fseek(file_easy_reading, position_debut_easy_reading-3, 0) ;
+    fprintf(file_easy_reading, "%c", position_fin_easy_reading) ;
+    fseek(file_easy_reading, 0, 2) ;
+
+
+}
