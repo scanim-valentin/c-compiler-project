@@ -51,27 +51,27 @@ architecture Behavioral of ALU is
 begin
         
         A_Extended <= x"00" & A ; 
-        B_Extended <= x"00" & B;
+        B_Extended <= x"00" & B ;
         
         --add
         S_Extended <= (A_Extended + B_Extended) when Ctrl_Alu = "000" else
         --sou
                       (A_Extended - B_Extended) when (Ctrl_Alu = "001") else
         --mul
-                      (A_Extended * B_Extended) when (Ctrl_Alu = "010") ;
-           
+                      (A * B) when (Ctrl_Alu = "010") ;
+            
         --Gestion des flags           
-        --C
-        Flags(0) <= '1' when ( (Ctrl_Alu = "000" OR Ctrl_Alu = "001") AND S_Extended(8) = '1') ;
+        --C (Add)
+        Flags(0) <= '1' when ( (Ctrl_Alu = "000" OR Ctrl_Alu = "001") AND S_Extended(8) = '1') else '0';
         
         --Z
-        Flags(1) <= '1' when S_Extended = X"00" ;
+        Flags(1) <= '1' when S_Extended = X"00" else '0';
         
-        --O ??
-        Flags(2) <= '1' when ( (Ctrl_Alu = "010") AND S_Extended(8) = '1') ;
+        --O (Mul)
+        Flags(2) <= '1' when ( (Ctrl_Alu = "010") AND S_Extended(8) = '1') else '0';
                         
         --N 
-        Flags(3) <= '1' when S_Extended <= X"00" ;
+        Flags(3) <= '1' when S_Extended < X"00" else '0';
                 
                 
         S <= S_Extended (7 downto 0) ; 

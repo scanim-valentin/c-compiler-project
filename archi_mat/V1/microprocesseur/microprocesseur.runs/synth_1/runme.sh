@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/guerbett/Repositories/c-compiler-project/archi_mat/microprocesseur/microprocesseur.runs/synth_1'
+HD_PWD='/home/guerbett/Repositories/c-compiler-project/archi_mat/V1/microprocesseur/microprocesseur.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
