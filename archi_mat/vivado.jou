@@ -1,0 +1,36 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Thu Apr 14 11:57:55 2022
+# Process ID: 83007
+# Current directory: /home/guerbett/Repositories/c_compiler_project/archi_mat
+# Command line: vivado
+# Log file: /home/guerbett/Repositories/c_compiler_project/archi_mat/vivado.log
+# Journal file: /home/guerbett/Repositories/c_compiler_project/archi_mat/vivado.jou
+#-----------------------------------------------------------
+start_gui
+create_project alu /home/guerbett/Repositories/c_compiler_project/archi_mat/alu -part xc7a35tcpg236-1
+set_property board_part digilentinc.com:basys3:part0:1.1 [current_project]
+set_property target_language VHDL [current_project]
+add_files -norecurse /home/guerbett/Repositories/c_compiler_project/archi_mat/ALU.vhd
+add_files -fileset sim_1 -norecurse /home/guerbett/Repositories/c_compiler_project/archi_mat/ALU_TEST.vhd
+update_compile_order -fileset sources_1
+close_project
+create_project pregistres /home/guerbett/Repositories/c_compiler_project/archi_mat/pregistres -part xc7a35tcpg236-1
+set_property board_part digilentinc.com:basys3:part0:1.1 [current_project]
+set_property target_language VHDL [current_project]
+add_files -norecurse /home/guerbett/Repositories/c_compiler_project/archi_mat/BANC_REGISTRES.vhd
+add_files -fileset sim_1 -norecurse /home/guerbett/Repositories/c_compiler_project/archi_mat/test_reg.vhd
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+launch_simulation
+source test_reg.tcl
+close_sim
+launch_simulation
+source test_reg.tcl
+close_sim
