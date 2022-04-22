@@ -37,9 +37,9 @@ entity BANC_REGISTRES is
     Port ( Addr_A : in STD_LOGIC_VECTOR (3 downto 0);
            Addr_B : in STD_LOGIC_VECTOR (3 downto 0);
            Addr_W : in STD_LOGIC_VECTOR (3 downto 0);
-           W : in STD_LOGIC;
+           W : in STD_LOGIC; --Actif a l'etat haut
            DATA : in STD_LOGIC_VECTOR (7 downto 0);
-           RST : in STD_LOGIC;
+           RST : in STD_LOGIC; --Actif a l'etat bas
            CLK : in STD_LOGIC;
            QA : out STD_LOGIC_VECTOR (7 downto 0);
            QB : out STD_LOGIC_VECTOR (7 downto 0) ) ;
@@ -64,12 +64,11 @@ begin
             --Acces en ecriture
             registers(to_integer(unsigned(Addr_W))) <= DATA ;
         
-            
         end if;
-        
+
     end process;
-    
     QA <= registers(to_integer(unsigned(Addr_A))) ; 
     QB <= registers(to_integer(unsigned(Addr_B))) ; 
+
     
 end Behavioral;

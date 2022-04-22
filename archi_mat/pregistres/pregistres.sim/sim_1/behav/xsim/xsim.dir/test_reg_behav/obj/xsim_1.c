@@ -50,21 +50,19 @@ extern void execute_20(char*, char *);
 extern void execute_21(char*, char *);
 extern void execute_22(char*, char *);
 extern void execute_23(char*, char *);
-extern void execute_24(char*, char *);
-extern void execute_25(char*, char *);
 extern void execute_14(char*, char *);
 extern void execute_15(char*, char *);
 extern void execute_16(char*, char *);
 extern void vhdl_transfunc_eventcallback(char*, char*, unsigned, unsigned, unsigned, char *);
 extern void transaction_5(char*, char*, unsigned, unsigned, unsigned);
-funcp funcTab[14] = {(funcp)execute_17, (funcp)execute_18, (funcp)execute_19, (funcp)execute_20, (funcp)execute_21, (funcp)execute_22, (funcp)execute_23, (funcp)execute_24, (funcp)execute_25, (funcp)execute_14, (funcp)execute_15, (funcp)execute_16, (funcp)vhdl_transfunc_eventcallback, (funcp)transaction_5};
-const int NumRelocateId= 14;
+funcp funcTab[12] = {(funcp)execute_17, (funcp)execute_18, (funcp)execute_19, (funcp)execute_20, (funcp)execute_21, (funcp)execute_22, (funcp)execute_23, (funcp)execute_14, (funcp)execute_15, (funcp)execute_16, (funcp)vhdl_transfunc_eventcallback, (funcp)transaction_5};
+const int NumRelocateId= 12;
 
 void relocate(char *dp)
 {
-	iki_relocate(dp, "xsim.dir/test_reg_behav/xsim.reloc",  (void **)funcTab, 14);
-	iki_vhdl_file_variable_register(dp + 4736);
-	iki_vhdl_file_variable_register(dp + 4792);
+	iki_relocate(dp, "xsim.dir/test_reg_behav/xsim.reloc",  (void **)funcTab, 12);
+	iki_vhdl_file_variable_register(dp + 4096);
+	iki_vhdl_file_variable_register(dp + 4152);
 
 
 	/*Populate the transaction function pointer field in the whole net structure */
