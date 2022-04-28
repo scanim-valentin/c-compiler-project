@@ -1,0 +1,133 @@
+$date
+  Mon Apr 25 03:24:44 2022
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module std_logic_arith $end
+$upscope $end
+$scope module std_logic_unsigned $end
+$upscope $end
+$scope module alu_test $end
+$var reg 8 ! a_local[7:0] $end
+$var reg 8 " b_local[7:0] $end
+$var reg 3 # ctrl_alu_local[2:0] $end
+$var reg 8 $ s_local[7:0] $end
+$var reg 4 % flags_local[3:0] $end
+$scope module label_uut $end
+$var reg 8 & a[7:0] $end
+$var reg 8 ' b[7:0] $end
+$var reg 3 ( ctrl_alu[2:0] $end
+$var reg 8 ) s[7:0] $end
+$var reg 4 * flags[3:0] $end
+$var reg 16 + s_extended[15:0] $end
+$var reg 16 , a_extended[15:0] $end
+$var reg 16 - b_extended[15:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+bUUUUUUUU !
+bUUUUUUUU "
+bUUU #
+bUUUUUUUU $
+b0000 %
+bUUUUUUUU &
+bUUUUUUUU '
+bUUU (
+bUUUUUUUU )
+b0000 *
+bUUUUUUUUUUUUUUUU +
+b00000000UUUUUUUU ,
+b00000000UUUUUUUU -
+#1000000
+b000 #
+bXXXXXXXX $
+b000 (
+bXXXXXXXX )
+bXXXXXXXXXXXXXXXX +
+#5000000
+b00000001 !
+b00000001 "
+b00000010 $
+b00000001 &
+b00000001 '
+b00000010 )
+b0000000000000010 +
+b0000000000000001 ,
+b0000000000000001 -
+#10000000
+b11111111 !
+b11111111 "
+b11111110 $
+b0001 %
+b11111111 &
+b11111111 '
+b11111110 )
+b0001 *
+b0000000111111110 +
+b0000000011111111 ,
+b0000000011111111 -
+#11000000
+b001 #
+b00000000 $
+b0010 %
+b001 (
+b00000000 )
+b0010 *
+b0000000000000000 +
+#15000000
+b00000010 !
+b00000010 "
+b00000010 &
+b00000010 '
+b0000000000000010 ,
+b0000000000000010 -
+#20000000
+b11111111 !
+b11111101 $
+b0000 %
+b11111111 &
+b11111101 )
+b0000 *
+b0000000011111101 +
+b0000000011111111 ,
+#21000000
+b010 #
+b11111110 $
+b0100 %
+b010 (
+b11111110 )
+b0100 *
+b0000000111111110 +
+#23000000
+b00000001 !
+b00000001 "
+b00000001 $
+b0000 %
+b00000001 &
+b00000001 '
+b00000001 )
+b0000 *
+b0000000000000001 +
+b0000000000000001 ,
+b0000000000000001 -
+#26000000
+b00000000 !
+b11111111 "
+b00000000 $
+b0010 %
+b00000000 &
+b11111111 '
+b00000000 )
+b0010 *
+b0000000000000000 +
+b0000000000000000 ,
+b0000000011111111 -
