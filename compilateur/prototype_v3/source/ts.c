@@ -107,7 +107,7 @@ void initBloc_TdS() {
 
 void expungeBloc_TdS() {
 	printf("current_scope = %d & TdS = \n",current_scope) ;  print_TdS() ;
-	while(getTopScope_TdS() == current_scope){
+	while(table_des_symbolles.top != NULL && getTopScope_TdS() == current_scope){
 		pop_TdS() ; 
 	}
 	current_scope -- ; 

@@ -24,9 +24,9 @@ void yyerror(char *s);
     PROGRAMME : tMain Bloc { Parse_End(); }
              ;
 
-    Bloc : tOpeningBracket { /*initBloc_TdS()*/ printf("debut bloc\n") ;} Corps { printf("fin corps \n");} tClosingBracket { /*expungeBloc_TdS()*/ printf("fin bloc\n");} ;
+    Bloc : tOpeningBracket { initBloc_TdS() ;} Corps tClosingBracket { expungeBloc_TdS() ;} ;
 
-    Corps : Ligne Corps | Bloc | ;
+    Corps : Ligne Corps | Bloc Corps | ;
 
     Ligne : ContenuLigne tPointVirgule ;
     ContenuLigne : Declaration | Assignation | Printf | InstructionIfElse | InstructionWhile ;
