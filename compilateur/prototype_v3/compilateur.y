@@ -24,9 +24,9 @@ void yyerror(char *s);
     PROGRAMME : tMain Bloc { Parse_End(); }
              ;
 
-    Bloc : tOpeningBracket Corps tClosingBracket | Ligne ;
+    Bloc : tOpeningBracket { /*initBloc_TdS()*/ printf("debut bloc\n") ;} Corps { printf("fin corps \n");} tClosingBracket { /*expungeBloc_TdS()*/ printf("fin bloc\n");} ;
 
-    Corps : Ligne Corps | ;
+    Corps : Ligne Corps | Bloc | ;
 
     Ligne : ContenuLigne tPointVirgule ;
     ContenuLigne : Declaration | Assignation | Printf | InstructionIfElse | InstructionWhile ;
@@ -35,14 +35,14 @@ void yyerror(char *s);
     
     InstructionElse : tElse Bloc | ;
 
-    InstructionWhile : tWhile tOpeningParenthesis Val tClosingParenthesis Bloc
+    InstructionWhile : tWhile tOpeningParenthesis Val tClosingParenthesis Bloc;
                     ;
 
     Printf : tPrintf tOpeningParenthesis Val tClosingParenthesis { Parse_printf() ; } 
             ;
 
-    Declaration : DeclarationType VarName { push_TdS($2, $1,0) ; }
-                | DeclarationType VarName { push_TdS($2, $1,0) ; } tEqual Val { Parse_Copy($2) ; }
+    Declaration : DeclarationType VarName { push_TdS($2, $1) ; }
+                | DeclarationType VarName { push_TdS($2, $1) ; } tEqual Val { Parse_Copy($2) ; }
                 ;
 
     DeclarationType : tDeclareConstInt { $$ = "const_int" ; }
@@ -71,10 +71,10 @@ void yyerror(char *s);
 
 %%
 
-void yyerror(char *s) { fprintf(stderr, "%s\n", s); }
+void yyerror(char *s) { fprintf(stderr, "%s\n", s); printf("error TdS: \n") ;  print_TdS() ; exit(-1); }
 
 int main(){
-    printf("Resultat de la compilation : \n") ; 
+    // On crée le fichier 
     Parse_Init("ASM_file") ;
     yyparse();
     printf("Final TdS: \n") ;  print_TdS() ;

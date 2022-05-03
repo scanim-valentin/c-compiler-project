@@ -15,10 +15,10 @@ typedef struct{
 } TdS ; 
 
 TdS table_des_symbolles = { NULL, NULL } ; 
-int Profondeur = 0;
 char nb_variables_temporaires = 0;
+unsigned char current_scope = 0; 
 
-int push_TdS(char * Nom, char * Type, int Scope){
+int push_TdS(char * Nom, char * Type){
     Symbolle * S = malloc(sizeof(Symbolle)) ; 
     S->next = table_des_symbolles.top;
     if(table_des_symbolles.top != NULL)
@@ -32,17 +32,17 @@ int push_TdS(char * Nom, char * Type, int Scope){
     table_des_symbolles.taille++ ; 
     S->Nom = strdup(Nom) ; 
     S->Type = strdup(Type)  ; 
-    S->scope = Scope ;
+    S->scope = current_scope ;
 
     return S->offset ;
 
 }
 
-int pushTemp_TdS(char * Type, int Scope){
+int pushTemp_TdS(char * Type){
     nb_variables_temporaires ++ ;
     char nom[] = "temp_0" ;
     nom[5] = (char)(48 + nb_variables_temporaires);
-    return push_TdS(nom, Type, Scope) ;
+    return push_TdS(nom, Type) ;
 }
 
 int pop_TdS(){
@@ -81,6 +81,10 @@ int getLastAdded_TdS(){
     return table_des_symbolles.top->offset ;
 }
 
+int getTopScope_TdS(){
+    return table_des_symbolles.top->scope ; 
+}
+
 void print_Symbolle(Symbolle * S){
     if(S == NULL)
         printf("{}") ;
@@ -90,10 +94,22 @@ void print_Symbolle(Symbolle * S){
 }
 
 void print_TdS(){
-    printf("print\n");
     Symbolle * aux = table_des_symbolles.top;
     while( aux != NULL ){
         print_Symbolle(aux);
         aux = aux->next ; 
     }
 }
+
+void initBloc_TdS() {
+	current_scope ++ ; 
+}
+
+void expungeBloc_TdS() {
+	printf("current_scope = %d & TdS = \n",current_scope) ;  print_TdS() ;
+	while(getTopScope_TdS() == current_scope){
+		pop_TdS() ; 
+	}
+	current_scope -- ; 
+}
+

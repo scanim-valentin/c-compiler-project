@@ -1,7 +1,7 @@
-main(){
-	if (0) {
-		printf(00);
-	} else {
-		printf(42);
-	}
+main()
+{
+   int a=1; 
+   {
+   }
 }
+
