@@ -26,14 +26,17 @@ void yyerror(char *s);
 
     Bloc : tOpeningBracket { initBloc_TdS() ;} Corps tClosingBracket { expungeBloc_TdS() ;} ;
 
-    Corps : Ligne Corps | Bloc Corps | ;
+    Corps : Ligne Corps | BlocBased {printf("Post Bloc Corps\n");}  Corps | ;
 
     Ligne : ContenuLigne tPointVirgule ;
-    ContenuLigne : Declaration | Assignation | Printf | InstructionIfElse | InstructionWhile ;
-
-    InstructionIfElse : tIf tOpeningParenthesis Val tClosingParenthesis { Parse_If() ; } Bloc { Parse_Else() ; } InstructionElse { Parse_EndElse() ; };  
     
-    InstructionElse : tElse Bloc | ;
+    BlocBased : Bloc | InstructionIfElse | InstructionWhile ; 
+    
+    ContenuLigne : Declaration | Assignation | Printf ;
+
+    InstructionIfElse : tIf {printf("tIf\n");} tOpeningParenthesis Val tClosingParenthesis { Parse_If() ; } Bloc { Parse_Else() ; } InstructionElse { Parse_EndElse() ; };  
+    
+    InstructionElse : tElse {printf("tElse\n");}  Bloc {printf("Post Bloc Instruction Else\n");}  | ;
 
     InstructionWhile : tWhile tOpeningParenthesis Val tClosingParenthesis Bloc;
                     ;

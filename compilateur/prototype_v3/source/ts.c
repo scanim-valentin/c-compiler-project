@@ -16,7 +16,8 @@ typedef struct{
 
 TdS table_des_symbolles = { NULL, NULL } ; 
 char nb_variables_temporaires = 0;
-unsigned char current_scope = 0; 
+unsigned char current_scope = 0;
+unsigned int addr_debut_bloc = 0; 
 
 int push_TdS(char * Nom, char * Type){
     Symbolle * S = malloc(sizeof(Symbolle)) ; 
@@ -95,10 +96,13 @@ void print_Symbolle(Symbolle * S){
 
 void print_TdS(){
     Symbolle * aux = table_des_symbolles.top;
+    if(aux == NULL)
+    	printf("(empty TdS)\n") ; 
     while( aux != NULL ){
         print_Symbolle(aux);
         aux = aux->next ; 
     }
+    
 }
 
 void initBloc_TdS() {
@@ -110,6 +114,7 @@ void expungeBloc_TdS() {
 	while(table_des_symbolles.top != NULL && getTopScope_TdS() == current_scope){
 		pop_TdS() ; 
 	}
-	current_scope -- ; 
+	current_scope -- ;
 }
+
 

@@ -44,10 +44,6 @@ void Parse_Copy_To_TdS_Top(char * var) {
     Parse_Instruction(COP, dest, source, 0) ; 
 }
 
-int Parse_getValue(char * var) {
-    int source = getOffset_TdS(var) ; 
-}
-
 void Parse_AllocateTemp(int value, char * type){
     int addr = pushTemp_TdS(type) ;
     Parse_Instruction(AFC, addr, value, 0) ;
@@ -66,28 +62,66 @@ void Parse_printf() {
 
 //Gestion du IF
 
-unsigned int position_debut ;
+/* 
+Le choix d'utiliser une pile viens de l'impossibilite d'utiliser la table des symbolles pour cela (a part en detournant son utilisation principale a savoir relier des variables a leurs espaces memoires).
+En effet c'est au niveau de la compilation que s'effectue la modifications des jumps  
+*/
+typedef struct debut_bloc{
+    unsigned int num_instruction ;
+    struct debut_bloc * next ;   
+}  DebutBloc ; 
+
+DebutBloc * PilePositionDebutBloc = NULL ;
+ 
+void  push_debut(unsigned int num_instruction){
+	DebutBloc * new_top = malloc(sizeof(DebutBloc)) ; 
+	new_top->num_instruction = num_instruction ;
+	new_top->next = PilePositionDebutBloc ; 
+	PilePositionDebutBloc = new_top ;
+}
+
+unsigned int pop_debut(){
+	DebutBloc * old_top = PilePositionDebutBloc ;
+	unsigned int R = old_top->num_instruction ;  
+	PilePositionDebutBloc = PilePositionDebutBloc->next ;
+	free(old_top) ; 
+	return R ;  
+}
+
+void print_PilePosition(){
+	DebutBloc * aux = PilePositionDebutBloc ; 
+	printf("PilePositions = ") ; 
+	while(aux != NULL){
+		if(aux->next == NULL)
+			printf("%d\n",aux->num_instruction) ; 
+		else
+			printf("%d | ",aux->num_instruction) ;
+		aux = aux->next ;  
+	}
+}
 
 unsigned int taille_instruction = 4 ; 
 
 void Parse_If() {
     int cond = pop_TdS();
     Parse_Instruction(JMF, cond, 0, 0) ;
-    position_debut = ftell(file) ; 
+    push_debut(ftell(file)) ; 
 }
 
 void Parse_Else() {
     Parse_Instruction(JMP, 0, 0, 0) ;
-    unsigned int position_fin = ftell(file) ; 
-    fseek(file, position_debut-2, 0) ;
+    unsigned int position_fin = ftell(file) ;
+    printf("Parse_Else() : ") ; 
+    print_PilePosition() ; 
+    fseek(file, (pop_debut()/taille_instruction)-2, 0) ;
     fprintf(file, "%c", 1+position_fin/taille_instruction) ;
     fseek(file, 0, 2) ;    
-    position_debut = position_fin ; 
+    push_debut(position_fin) ; 
 }
 
 void Parse_EndElse() {
     unsigned int position_fin = ftell(file) ; 
-    fseek(file, position_debut-3, 0) ;
+    fseek(file, (pop_debut()/taille_instruction)-3, 0) ;
     fprintf(file, "%c", 1+position_fin/taille_instruction) ;
     fseek(file, 0, 2) ;
 }
