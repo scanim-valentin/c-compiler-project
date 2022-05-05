@@ -34,7 +34,7 @@ void yyerror(char *s);
     
     ContenuLigne : Declaration | Assignation | Printf ;
 
-    InstructionIfElse : tIf {printf("tIf\n");} tOpeningParenthesis Val tClosingParenthesis { Parse_If() ; } Bloc { Parse_Else() ; } InstructionElse { Parse_EndElse() ; };  
+    InstructionIfElse : tIf tOpeningParenthesis Val tClosingParenthesis { Parse_If() ; } Bloc { Parse_Else() ; } InstructionElse { Parse_EndElse() ; };
     
     InstructionElse : tElse {printf("tElse\n");}  Bloc {printf("Post Bloc Instruction Else\n");}  | ;
 

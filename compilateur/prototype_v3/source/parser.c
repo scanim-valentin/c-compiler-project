@@ -105,24 +105,24 @@ unsigned int taille_instruction = 4 ;
 void Parse_If() {
     int cond = pop_TdS();
     Parse_Instruction(JMF, cond, 0, 0) ;
-    push_debut(ftell(file)) ; 
+    push_debut(ftell(file) / taille_instruction) ;
 }
 
 void Parse_Else() {
     Parse_Instruction(JMP, 0, 0, 0) ;
-    unsigned int position_fin = ftell(file) ;
-    printf("Parse_Else() : ") ; 
-    print_PilePosition() ; 
-    fseek(file, (pop_debut()/taille_instruction)-2, 0) ;
-    fprintf(file, "%c", 1+position_fin/taille_instruction) ;
+    unsigned int num_instruction_jmp = ftell(file) / taille_instruction ;
+    printf("num_instruction_jmp %d \n", num_instruction_jmp) ;
+    fseek(file,pop_debut() * taille_instruction - 2, 0) ;
+    fprintf(file, "%c", num_instruction_jmp + 1) ;
     fseek(file, 0, 2) ;    
-    push_debut(position_fin) ; 
+    push_debut(num_instruction_jmp) ;
 }
 
 void Parse_EndElse() {
-    unsigned int position_fin = ftell(file) ; 
-    fseek(file, (pop_debut()/taille_instruction)-3, 0) ;
-    fprintf(file, "%c", 1+position_fin/taille_instruction) ;
+    unsigned int num_instruction_fin = ftell(file) / taille_instruction;
+    printf("num_instruction_fin %d \n", num_instruction_fin) ;
+    fseek(file,pop_debut() * taille_instruction - 3, 0) ;
+    fprintf(file, "%c", num_instruction_fin + 1) ;
     fseek(file, 0, 2) ;
 }
 

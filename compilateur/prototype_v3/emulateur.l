@@ -20,6 +20,7 @@ unsigned int getElementFromInst(int place){
 %%
 
 [0-9a-fA-F]{8} {
+		//printf("%s \n", yytext) ;
 		strcpy(inst_mem[line_nb],yytext) ; 
 		line_nb++;	
 }	
@@ -38,7 +39,7 @@ int main(void) {
 	// Execution
 	for(unsigned int i = 0 ; i < MEM_SIZE ; i++){
 		currentInst = i ;  
-		//printf("i = %d | s = %s \n",i,inst_mem[currentInst]);
+		//printf("i = %x | s = %s \n",i,inst_mem[currentInst]);
 		const char op_str[3] = { inst_mem[currentInst][0] , inst_mem[currentInst][1] , '\0' } ; 
 		unsigned int op = (unsigned int)strtol(op_str, NULL, 16) ;
 		
@@ -46,6 +47,8 @@ int main(void) {
 		
 			case 0:
 				i=MEM_SIZE ; 
+				break;
+
 			case 1:
 					 
 				data_mem[getElementFromInst(1)] = data_mem[getElementFromInst(2)] + data_mem[getElementFromInst(3)] ;
@@ -79,7 +82,10 @@ int main(void) {
 				i = getElementFromInst(1)-2 ; 
 				break;
 			case 8:
+				//printf("JMF\n") ;
+				// erreur de notre part: JMF est en realite un JMF not ...
 				if(data_mem[getElementFromInst(1)] == 0) {
+					//printf("JMF effectue\n") ;
 					i=getElementFromInst(2)-2 ;	
 				}
 				break;
@@ -96,7 +102,7 @@ int main(void) {
 				
 				break;
 			case 12:
-				printf("%d\n",data_mem[getElementFromInst(1)]) ; 
+				printf("%d\n",data_mem[getElementFromInst(1)]) ;
 				break;
 			
 			default:
