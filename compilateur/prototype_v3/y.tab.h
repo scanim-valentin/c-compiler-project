@@ -66,16 +66,19 @@ extern int yydebug;
     tMinus = 267,                  /* tMinus  */
     tMult = 268,                   /* tMult  */
     tDiv = 269,                    /* tDiv  */
-    tEqual = 270,                  /* tEqual  */
-    tOpeningParenthesis = 271,     /* tOpeningParenthesis  */
-    tClosingParenthesis = 272,     /* tClosingParenthesis  */
-    tNewline = 273,                /* tNewline  */
-    tPointVirgule = 274,           /* tPointVirgule  */
-    tVirgule = 275,                /* tVirgule  */
-    tPrintf = 276,                 /* tPrintf  */
-    tValueInt = 277,               /* tValueInt  */
-    tVarName = 278,                /* tVarName  */
-    tValueExp = 279                /* tValueExp  */
+    tSup = 270,                    /* tSup  */
+    tInf = 271,                    /* tInf  */
+    tEqual = 272,                  /* tEqual  */
+    tAssign = 273,                 /* tAssign  */
+    tOpeningParenthesis = 274,     /* tOpeningParenthesis  */
+    tClosingParenthesis = 275,     /* tClosingParenthesis  */
+    tNewline = 276,                /* tNewline  */
+    tPointVirgule = 277,           /* tPointVirgule  */
+    tVirgule = 278,                /* tVirgule  */
+    tPrintf = 279,                 /* tPrintf  */
+    tValueInt = 280,               /* tValueInt  */
+    tVarName = 281,                /* tVarName  */
+    tValueExp = 282                /* tValueExp  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -96,16 +99,19 @@ extern int yydebug;
 #define tMinus 267
 #define tMult 268
 #define tDiv 269
-#define tEqual 270
-#define tOpeningParenthesis 271
-#define tClosingParenthesis 272
-#define tNewline 273
-#define tPointVirgule 274
-#define tVirgule 275
-#define tPrintf 276
-#define tValueInt 277
-#define tVarName 278
-#define tValueExp 279
+#define tSup 270
+#define tInf 271
+#define tEqual 272
+#define tAssign 273
+#define tOpeningParenthesis 274
+#define tClosingParenthesis 275
+#define tNewline 276
+#define tPointVirgule 277
+#define tVirgule 278
+#define tPrintf 279
+#define tValueInt 280
+#define tVarName 281
+#define tValueExp 282
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -114,7 +120,7 @@ union YYSTYPE
 #line 20 "compilateur.y"
  int nb; char * var; double nb_exp; 
 
-#line 118 "y.tab.h"
+#line 124 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

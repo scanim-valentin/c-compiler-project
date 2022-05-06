@@ -137,16 +137,19 @@ extern int yydebug;
     tMinus = 267,                  /* tMinus  */
     tMult = 268,                   /* tMult  */
     tDiv = 269,                    /* tDiv  */
-    tEqual = 270,                  /* tEqual  */
-    tOpeningParenthesis = 271,     /* tOpeningParenthesis  */
-    tClosingParenthesis = 272,     /* tClosingParenthesis  */
-    tNewline = 273,                /* tNewline  */
-    tPointVirgule = 274,           /* tPointVirgule  */
-    tVirgule = 275,                /* tVirgule  */
-    tPrintf = 276,                 /* tPrintf  */
-    tValueInt = 277,               /* tValueInt  */
-    tVarName = 278,                /* tVarName  */
-    tValueExp = 279                /* tValueExp  */
+    tSup = 270,                    /* tSup  */
+    tInf = 271,                    /* tInf  */
+    tEqual = 272,                  /* tEqual  */
+    tAssign = 273,                 /* tAssign  */
+    tOpeningParenthesis = 274,     /* tOpeningParenthesis  */
+    tClosingParenthesis = 275,     /* tClosingParenthesis  */
+    tNewline = 276,                /* tNewline  */
+    tPointVirgule = 277,           /* tPointVirgule  */
+    tVirgule = 278,                /* tVirgule  */
+    tPrintf = 279,                 /* tPrintf  */
+    tValueInt = 280,               /* tValueInt  */
+    tVarName = 281,                /* tVarName  */
+    tValueExp = 282                /* tValueExp  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -167,16 +170,19 @@ extern int yydebug;
 #define tMinus 267
 #define tMult 268
 #define tDiv 269
-#define tEqual 270
-#define tOpeningParenthesis 271
-#define tClosingParenthesis 272
-#define tNewline 273
-#define tPointVirgule 274
-#define tVirgule 275
-#define tPrintf 276
-#define tValueInt 277
-#define tVarName 278
-#define tValueExp 279
+#define tSup 270
+#define tInf 271
+#define tEqual 272
+#define tAssign 273
+#define tOpeningParenthesis 274
+#define tClosingParenthesis 275
+#define tNewline 276
+#define tPointVirgule 277
+#define tVirgule 278
+#define tPrintf 279
+#define tValueInt 280
+#define tVarName 281
+#define tValueExp 282
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -185,7 +191,7 @@ union YYSTYPE
 #line 20 "compilateur.y"
  int nb; char * var; double nb_exp; 
 
-#line 189 "y.tab.c"
+#line 195 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -220,40 +226,45 @@ enum yysymbol_kind_t
   YYSYMBOL_tMinus = 12,                    /* tMinus  */
   YYSYMBOL_tMult = 13,                     /* tMult  */
   YYSYMBOL_tDiv = 14,                      /* tDiv  */
-  YYSYMBOL_tEqual = 15,                    /* tEqual  */
-  YYSYMBOL_tOpeningParenthesis = 16,       /* tOpeningParenthesis  */
-  YYSYMBOL_tClosingParenthesis = 17,       /* tClosingParenthesis  */
-  YYSYMBOL_tNewline = 18,                  /* tNewline  */
-  YYSYMBOL_tPointVirgule = 19,             /* tPointVirgule  */
-  YYSYMBOL_tVirgule = 20,                  /* tVirgule  */
-  YYSYMBOL_tPrintf = 21,                   /* tPrintf  */
-  YYSYMBOL_tValueInt = 22,                 /* tValueInt  */
-  YYSYMBOL_tVarName = 23,                  /* tVarName  */
-  YYSYMBOL_tValueExp = 24,                 /* tValueExp  */
-  YYSYMBOL_YYACCEPT = 25,                  /* $accept  */
-  YYSYMBOL_PROGRAMME = 26,                 /* PROGRAMME  */
-  YYSYMBOL_Bloc = 27,                      /* Bloc  */
-  YYSYMBOL_28_1 = 28,                      /* $@1  */
-  YYSYMBOL_Corps = 29,                     /* Corps  */
-  YYSYMBOL_30_2 = 30,                      /* $@2  */
-  YYSYMBOL_Ligne = 31,                     /* Ligne  */
-  YYSYMBOL_BlocBased = 32,                 /* BlocBased  */
-  YYSYMBOL_ContenuLigne = 33,              /* ContenuLigne  */
-  YYSYMBOL_InstructionIfElse = 34,         /* InstructionIfElse  */
-  YYSYMBOL_35_3 = 35,                      /* $@3  */
-  YYSYMBOL_36_4 = 36,                      /* $@4  */
-  YYSYMBOL_InstructionElse = 37,           /* InstructionElse  */
-  YYSYMBOL_38_5 = 38,                      /* $@5  */
-  YYSYMBOL_InstructionWhile = 39,          /* InstructionWhile  */
-  YYSYMBOL_Printf = 40,                    /* Printf  */
-  YYSYMBOL_Declaration = 41,               /* Declaration  */
-  YYSYMBOL_42_6 = 42,                      /* $@6  */
-  YYSYMBOL_DeclarationType = 43,           /* DeclarationType  */
-  YYSYMBOL_VarName = 44,                   /* VarName  */
-  YYSYMBOL_Assignation = 45,               /* Assignation  */
-  YYSYMBOL_Val = 46,                       /* Val  */
-  YYSYMBOL_Arithmetique = 47,              /* Arithmetique  */
-  YYSYMBOL_Operator = 48                   /* Operator  */
+  YYSYMBOL_tSup = 15,                      /* tSup  */
+  YYSYMBOL_tInf = 16,                      /* tInf  */
+  YYSYMBOL_tEqual = 17,                    /* tEqual  */
+  YYSYMBOL_tAssign = 18,                   /* tAssign  */
+  YYSYMBOL_tOpeningParenthesis = 19,       /* tOpeningParenthesis  */
+  YYSYMBOL_tClosingParenthesis = 20,       /* tClosingParenthesis  */
+  YYSYMBOL_tNewline = 21,                  /* tNewline  */
+  YYSYMBOL_tPointVirgule = 22,             /* tPointVirgule  */
+  YYSYMBOL_tVirgule = 23,                  /* tVirgule  */
+  YYSYMBOL_tPrintf = 24,                   /* tPrintf  */
+  YYSYMBOL_tValueInt = 25,                 /* tValueInt  */
+  YYSYMBOL_tVarName = 26,                  /* tVarName  */
+  YYSYMBOL_tValueExp = 27,                 /* tValueExp  */
+  YYSYMBOL_YYACCEPT = 28,                  /* $accept  */
+  YYSYMBOL_PROGRAMME = 29,                 /* PROGRAMME  */
+  YYSYMBOL_Bloc = 30,                      /* Bloc  */
+  YYSYMBOL_31_1 = 31,                      /* $@1  */
+  YYSYMBOL_Corps = 32,                     /* Corps  */
+  YYSYMBOL_33_2 = 33,                      /* $@2  */
+  YYSYMBOL_Ligne = 34,                     /* Ligne  */
+  YYSYMBOL_BlocBased = 35,                 /* BlocBased  */
+  YYSYMBOL_ContenuLigne = 36,              /* ContenuLigne  */
+  YYSYMBOL_InstructionIfElse = 37,         /* InstructionIfElse  */
+  YYSYMBOL_38_3 = 38,                      /* $@3  */
+  YYSYMBOL_39_4 = 39,                      /* $@4  */
+  YYSYMBOL_InstructionElse = 40,           /* InstructionElse  */
+  YYSYMBOL_41_5 = 41,                      /* $@5  */
+  YYSYMBOL_InstructionWhile = 42,          /* InstructionWhile  */
+  YYSYMBOL_43_6 = 43,                      /* $@6  */
+  YYSYMBOL_44_7 = 44,                      /* $@7  */
+  YYSYMBOL_Printf = 45,                    /* Printf  */
+  YYSYMBOL_Declaration = 46,               /* Declaration  */
+  YYSYMBOL_47_8 = 47,                      /* $@8  */
+  YYSYMBOL_DeclarationType = 48,           /* DeclarationType  */
+  YYSYMBOL_VarName = 49,                   /* VarName  */
+  YYSYMBOL_Assignation = 50,               /* Assignation  */
+  YYSYMBOL_Val = 51,                       /* Val  */
+  YYSYMBOL_Arithmetique = 52,              /* Arithmetique  */
+  YYSYMBOL_Operator = 53                   /* Operator  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -581,19 +592,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  5
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   65
+#define YYLAST   70
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  25
+#define YYNTOKENS  28
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  24
+#define YYNNTS  26
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  40
+#define YYNRULES  45
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  68
+#define YYNSTATES  73
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   279
+#define YYMAXUTOK   282
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -634,7 +645,8 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,    21,    22,    23,    24
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26,    27
 };
 
 #if YYDEBUG
@@ -643,9 +655,9 @@ static const yytype_int8 yyrline[] =
 {
        0,    24,    24,    27,    27,    29,    29,    29,    29,    31,
       33,    33,    33,    35,    35,    35,    37,    37,    37,    39,
-      39,    39,    41,    44,    47,    48,    48,    51,    52,    55,
-      56,    59,    62,    63,    64,    65,    67,    69,    70,    71,
-      72
+      39,    39,    41,    41,    41,    43,    46,    47,    47,    50,
+      51,    54,    55,    58,    61,    62,    63,    64,    66,    68,
+      69,    70,    71,    72,    73,    74
 };
 #endif
 
@@ -663,14 +675,15 @@ static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "tDeclareInt",
   "tDeclareConstInt", "tOpeningBracket", "tClosingBracket", "tWhile",
-  "tElse", "tIf", "tMain", "tPlus", "tMinus", "tMult", "tDiv", "tEqual",
-  "tOpeningParenthesis", "tClosingParenthesis", "tNewline",
-  "tPointVirgule", "tVirgule", "tPrintf", "tValueInt", "tVarName",
-  "tValueExp", "$accept", "PROGRAMME", "Bloc", "$@1", "Corps", "$@2",
-  "Ligne", "BlocBased", "ContenuLigne", "InstructionIfElse", "$@3", "$@4",
-  "InstructionElse", "$@5", "InstructionWhile", "Printf", "Declaration",
-  "$@6", "DeclarationType", "VarName", "Assignation", "Val",
-  "Arithmetique", "Operator", YY_NULLPTR
+  "tElse", "tIf", "tMain", "tPlus", "tMinus", "tMult", "tDiv", "tSup",
+  "tInf", "tEqual", "tAssign", "tOpeningParenthesis",
+  "tClosingParenthesis", "tNewline", "tPointVirgule", "tVirgule",
+  "tPrintf", "tValueInt", "tVarName", "tValueExp", "$accept", "PROGRAMME",
+  "Bloc", "$@1", "Corps", "$@2", "Ligne", "BlocBased", "ContenuLigne",
+  "InstructionIfElse", "$@3", "$@4", "InstructionElse", "$@5",
+  "InstructionWhile", "$@6", "$@7", "Printf", "Declaration", "$@8",
+  "DeclarationType", "VarName", "Assignation", "Val", "Arithmetique",
+  "Operator", YY_NULLPTR
 };
 
 static const char *
@@ -680,12 +693,12 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-25)
+#define YYPACT_NINF (-26)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-26)
+#define YYTABLE_NINF (-28)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -694,13 +707,14 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       3,     7,    18,   -25,   -25,   -25,     2,   -25,   -25,     1,
-       4,     5,     9,   -25,    16,     2,   -25,    14,   -25,   -25,
-     -25,   -25,    11,   -25,    -8,    -8,    -8,    -8,   -25,   -25,
-       2,   -25,     6,    20,    -8,   -25,   -25,   -25,    19,   -25,
-      21,    22,   -25,   -25,    11,    25,    17,     7,   -25,   -25,
-     -25,    -8,   -25,   -25,   -25,   -25,    -8,   -25,     7,   -25,
-      24,   -25,   -25,    29,   -25,   -25,     7,   -25
+      -6,     0,     6,   -26,   -26,   -26,     8,   -26,   -26,   -26,
+     -11,    -3,     1,   -26,    17,     8,   -26,   -15,   -26,   -26,
+     -26,   -26,    -2,   -26,     9,    -5,    -5,    -5,   -26,   -26,
+       8,   -26,     2,    11,    -5,    -5,   -26,   -26,   -26,     7,
+     -26,    10,   -26,   -26,    -2,    13,    23,    25,   -26,   -26,
+     -26,    -5,   -26,   -26,   -26,   -26,   -26,   -26,   -26,   -26,
+      -5,     0,   -26,     0,    24,   -26,   -26,   -26,    37,   -26,
+     -26,     0,   -26
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -708,29 +722,30 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     3,     2,     1,     8,    28,    27,     0,
+       0,     0,     0,     3,     2,     1,     8,    30,    29,    22,
        0,     0,     0,    10,     0,     8,     6,     0,    11,    12,
       15,    13,     0,    14,     0,     0,     0,     0,     4,     5,
-       8,     9,    30,    24,     0,    33,    32,    34,     0,    35,
-       0,     0,    31,     7,     0,     0,     0,     0,    16,    23,
-      29,     0,    37,    38,    39,    40,     0,    22,     0,    26,
-       0,    17,    36,    21,    19,    18,     0,    20
+       8,     9,    32,    26,     0,     0,    35,    34,    36,     0,
+      37,     0,    33,     7,     0,     0,     0,     0,    16,    25,
+      31,     0,    23,    39,    40,    41,    42,    44,    45,    43,
+       0,     0,    28,     0,     0,    17,    24,    38,    21,    19,
+      18,     0,    20
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -25,   -25,    -1,   -25,   -11,   -25,   -25,   -25,   -25,   -25,
-     -25,   -25,   -25,   -25,   -25,   -25,   -25,   -25,   -25,    -2,
-     -25,   -24,   -25,   -25
+     -26,   -26,    -1,   -26,   -12,   -26,   -26,   -26,   -26,   -26,
+     -26,   -26,   -26,   -26,   -26,   -26,   -26,   -26,   -26,   -26,
+     -26,     3,   -26,   -25,   -26,   -26
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
        0,     2,    13,     6,    14,    30,    15,    16,    17,    18,
-      58,    63,    65,    66,    19,    20,    21,    45,    22,    33,
-      23,    38,    39,    56
+      61,    68,    70,    71,    19,    24,    63,    20,    21,    45,
+      22,    33,    23,    39,    40,    60
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -738,47 +753,50 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       4,    40,    41,    42,    29,     7,     8,     3,    34,     9,
-      46,    10,     3,     1,    35,    36,    37,    24,     5,    43,
-      25,    26,    28,    11,    27,    12,    44,    59,    52,    53,
-      54,    55,    60,    31,    32,   -25,    47,    64,    48,    49,
-      51,    62,    50,     0,     0,     0,    57,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,    61,     0,     0,
-       0,     0,     0,     0,     0,    67
+       4,    41,    42,    29,     1,     3,     5,    31,    25,    46,
+      47,     7,     8,     3,    35,     9,    26,    10,    43,    27,
+      36,    37,    38,    28,    32,    44,    62,    48,    34,   -27,
+      49,    51,    11,     0,    12,    64,    53,    54,    55,    56,
+      57,    58,    59,    52,    67,    69,     0,    50,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+      65,     0,    66,     0,     0,     0,     0,     0,     0,     0,
+      72
 };
 
 static const yytype_int8 yycheck[] =
 {
-       1,    25,    26,    27,    15,     3,     4,     5,    16,     7,
-      34,     9,     5,    10,    22,    23,    24,    16,     0,    30,
-      16,    16,     6,    21,    15,    23,    20,    51,    11,    12,
-      13,    14,    56,    19,    23,    15,    17,     8,    17,    17,
-      15,    17,    44,    -1,    -1,    -1,    47,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    58,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    66
+       1,    26,    27,    15,    10,     5,     0,    22,    19,    34,
+      35,     3,     4,     5,    19,     7,    19,     9,    30,    18,
+      25,    26,    27,     6,    26,    23,    51,    20,    19,    18,
+      20,    18,    24,    -1,    26,    60,    11,    12,    13,    14,
+      15,    16,    17,    20,    20,     8,    -1,    44,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      61,    -1,    63,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      71
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    10,    26,     5,    27,     0,    28,     3,     4,     7,
-       9,    21,    23,    27,    29,    31,    32,    33,    34,    39,
-      40,    41,    43,    45,    16,    16,    16,    15,     6,    29,
-      30,    19,    23,    44,    16,    22,    23,    24,    46,    47,
-      46,    46,    46,    29,    20,    42,    46,    17,    17,    17,
-      44,    15,    11,    12,    13,    14,    48,    27,    35,    46,
-      46,    27,    17,    36,     8,    37,    38,    27
+       0,    10,    29,     5,    30,     0,    31,     3,     4,     7,
+       9,    24,    26,    30,    32,    34,    35,    36,    37,    42,
+      45,    46,    48,    50,    43,    19,    19,    18,     6,    32,
+      33,    22,    26,    49,    19,    19,    25,    26,    27,    51,
+      52,    51,    51,    32,    23,    47,    51,    51,    20,    20,
+      49,    18,    20,    11,    12,    13,    14,    15,    16,    17,
+      53,    38,    51,    44,    51,    30,    30,    20,    39,     8,
+      40,    41,    30
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    25,    26,    28,    27,    29,    30,    29,    29,    31,
-      32,    32,    32,    33,    33,    33,    35,    36,    34,    38,
-      37,    37,    39,    40,    41,    42,    41,    43,    43,    44,
-      44,    45,    46,    46,    46,    46,    47,    48,    48,    48,
-      48
+       0,    28,    29,    31,    30,    32,    33,    32,    32,    34,
+      35,    35,    35,    36,    36,    36,    38,    39,    37,    41,
+      40,    40,    43,    44,    42,    45,    46,    47,    46,    48,
+      48,    49,    49,    50,    51,    51,    51,    51,    52,    53,
+      53,    53,    53,    53,    53,    53
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -786,9 +804,9 @@ static const yytype_int8 yyr2[] =
 {
        0,     2,     2,     0,     4,     2,     0,     3,     0,     2,
        1,     1,     1,     1,     1,     1,     0,     0,     8,     0,
-       3,     0,     5,     4,     2,     0,     5,     1,     1,     3,
-       1,     3,     1,     1,     1,     1,     5,     1,     1,     1,
-       1
+       3,     0,     0,     0,     7,     4,     2,     0,     5,     1,
+       1,     3,     1,     3,     1,     1,     1,     1,     5,     1,
+       1,     1,     1,     1,     1,     1
 };
 
 
@@ -1254,161 +1272,197 @@ yyreduce:
   case 2: /* PROGRAMME: tMain Bloc  */
 #line 24 "compilateur.y"
                            { Parse_End(); }
-#line 1258 "y.tab.c"
+#line 1276 "y.tab.c"
     break;
 
   case 3: /* $@1: %empty  */
 #line 27 "compilateur.y"
                            { initBloc_TdS() ;}
-#line 1264 "y.tab.c"
+#line 1282 "y.tab.c"
     break;
 
   case 4: /* Bloc: tOpeningBracket $@1 Corps tClosingBracket  */
 #line 27 "compilateur.y"
                                                                      { expungeBloc_TdS() ;}
-#line 1270 "y.tab.c"
+#line 1288 "y.tab.c"
     break;
 
   case 6: /* $@2: %empty  */
 #line 29 "compilateur.y"
                                     {printf("Post Bloc Corps\n");}
-#line 1276 "y.tab.c"
+#line 1294 "y.tab.c"
     break;
 
   case 16: /* $@3: %empty  */
 #line 37 "compilateur.y"
                                                                         { Parse_If() ; }
-#line 1282 "y.tab.c"
+#line 1300 "y.tab.c"
     break;
 
   case 17: /* $@4: %empty  */
 #line 37 "compilateur.y"
                                                                                               { Parse_Else() ; }
-#line 1288 "y.tab.c"
+#line 1306 "y.tab.c"
     break;
 
   case 18: /* InstructionIfElse: tIf tOpeningParenthesis Val tClosingParenthesis $@3 Bloc $@4 InstructionElse  */
 #line 37 "compilateur.y"
                                                                                                                                  { Parse_EndElse() ; }
-#line 1294 "y.tab.c"
+#line 1312 "y.tab.c"
     break;
 
   case 19: /* $@5: %empty  */
 #line 39 "compilateur.y"
                             {printf("tElse\n");}
-#line 1300 "y.tab.c"
+#line 1318 "y.tab.c"
     break;
 
   case 20: /* InstructionElse: tElse $@5 Bloc  */
 #line 39 "compilateur.y"
                                                        {printf("Post Bloc Instruction Else\n");}
-#line 1306 "y.tab.c"
-    break;
-
-  case 23: /* Printf: tPrintf tOpeningParenthesis Val tClosingParenthesis  */
-#line 44 "compilateur.y"
-                                                                 { Parse_printf() ; }
-#line 1312 "y.tab.c"
-    break;
-
-  case 24: /* Declaration: DeclarationType VarName  */
-#line 47 "compilateur.y"
-                                          { push_TdS((yyvsp[0].var), (yyvsp[-1].var)) ; }
-#line 1318 "y.tab.c"
-    break;
-
-  case 25: /* $@6: %empty  */
-#line 48 "compilateur.y"
-                                          { push_TdS((yyvsp[0].var), (yyvsp[-1].var)) ; }
 #line 1324 "y.tab.c"
     break;
 
-  case 26: /* Declaration: DeclarationType VarName $@6 tEqual Val  */
-#line 48 "compilateur.y"
-                                                                            { Parse_Copy((yyvsp[-3].var)) ; }
+  case 22: /* $@6: %empty  */
+#line 41 "compilateur.y"
+                              { Parse_InitWhile() ; }
 #line 1330 "y.tab.c"
     break;
 
-  case 27: /* DeclarationType: tDeclareConstInt  */
-#line 51 "compilateur.y"
-                                       { (yyval.var) = "const_int" ; }
+  case 23: /* $@7: %empty  */
+#line 41 "compilateur.y"
+                                                                                                  { Parse_While() ; }
 #line 1336 "y.tab.c"
     break;
 
-  case 28: /* DeclarationType: tDeclareInt  */
-#line 52 "compilateur.y"
-                                  { (yyval.var) = "int" ; }
+  case 24: /* InstructionWhile: tWhile $@6 tOpeningParenthesis Val tClosingParenthesis $@7 Bloc  */
+#line 41 "compilateur.y"
+                                                                                                                           { Parse_EndWhile() ; }
 #line 1342 "y.tab.c"
     break;
 
-  case 29: /* VarName: tVarName tVirgule VarName  */
-#line 55 "compilateur.y"
-                                        { (yyval.var) = (yyvsp[-2].var) ;}
+  case 25: /* Printf: tPrintf tOpeningParenthesis Val tClosingParenthesis  */
+#line 43 "compilateur.y"
+                                                                 { Parse_printf() ; }
 #line 1348 "y.tab.c"
     break;
 
-  case 30: /* VarName: tVarName  */
-#line 56 "compilateur.y"
-                       { (yyval.var) = (yyvsp[0].var) ; }
+  case 26: /* Declaration: DeclarationType VarName  */
+#line 46 "compilateur.y"
+                                          { push_TdS((yyvsp[0].var), (yyvsp[-1].var)) ; }
 #line 1354 "y.tab.c"
     break;
 
-  case 31: /* Assignation: tVarName tEqual Val  */
-#line 59 "compilateur.y"
-                                      { Parse_Copy((yyvsp[-2].var)) ; }
+  case 27: /* $@8: %empty  */
+#line 47 "compilateur.y"
+                                          { push_TdS((yyvsp[0].var), (yyvsp[-1].var)) ; }
 #line 1360 "y.tab.c"
     break;
 
-  case 32: /* Val: tVarName  */
-#line 62 "compilateur.y"
-                   { Parse_Copy_To_TdS_Top((yyvsp[0].var)) ; }
+  case 28: /* Declaration: DeclarationType VarName $@8 tAssign Val  */
+#line 47 "compilateur.y"
+                                                                             { Parse_Copy((yyvsp[-3].var)) ; }
 #line 1366 "y.tab.c"
     break;
 
-  case 33: /* Val: tValueInt  */
-#line 63 "compilateur.y"
-                    { Parse_AllocateTemp((yyvsp[0].nb), "int") ; }
+  case 29: /* DeclarationType: tDeclareConstInt  */
+#line 50 "compilateur.y"
+                                       { (yyval.var) = "const_int" ; }
 #line 1372 "y.tab.c"
     break;
 
-  case 34: /* Val: tValueExp  */
-#line 64 "compilateur.y"
-                    { Parse_AllocateTemp((yyvsp[0].nb_exp), "int") ; }
+  case 30: /* DeclarationType: tDeclareInt  */
+#line 51 "compilateur.y"
+                                  { (yyval.var) = "int" ; }
 #line 1378 "y.tab.c"
     break;
 
-  case 36: /* Arithmetique: tOpeningParenthesis Val Operator Val tClosingParenthesis  */
-#line 67 "compilateur.y"
-                                                                            { Parse_Arith((yyvsp[-2].nb)); }
+  case 31: /* VarName: tVarName tVirgule VarName  */
+#line 54 "compilateur.y"
+                                        { (yyval.var) = (yyvsp[-2].var) ;}
 #line 1384 "y.tab.c"
     break;
 
-  case 37: /* Operator: tPlus  */
-#line 69 "compilateur.y"
-                     { (yyval.nb) = ADD ; }
+  case 32: /* VarName: tVarName  */
+#line 55 "compilateur.y"
+                       { (yyval.var) = (yyvsp[0].var) ; }
 #line 1390 "y.tab.c"
     break;
 
-  case 38: /* Operator: tMinus  */
-#line 70 "compilateur.y"
-                     { (yyval.nb) = SOU ; }
+  case 33: /* Assignation: tVarName tAssign Val  */
+#line 58 "compilateur.y"
+                                       { Parse_Copy((yyvsp[-2].var)) ; }
 #line 1396 "y.tab.c"
     break;
 
-  case 39: /* Operator: tMult  */
-#line 71 "compilateur.y"
-                     { (yyval.nb) = MUL ; }
+  case 34: /* Val: tVarName  */
+#line 61 "compilateur.y"
+                   { Parse_Copy_To_TdS_Top((yyvsp[0].var)) ; }
 #line 1402 "y.tab.c"
     break;
 
-  case 40: /* Operator: tDiv  */
-#line 72 "compilateur.y"
-                     { (yyval.nb) = DIV ; }
+  case 35: /* Val: tValueInt  */
+#line 62 "compilateur.y"
+                    { Parse_AllocateTemp((yyvsp[0].nb), "int") ; }
 #line 1408 "y.tab.c"
     break;
 
+  case 36: /* Val: tValueExp  */
+#line 63 "compilateur.y"
+                    { Parse_AllocateTemp((yyvsp[0].nb_exp), "int") ; }
+#line 1414 "y.tab.c"
+    break;
 
-#line 1412 "y.tab.c"
+  case 38: /* Arithmetique: tOpeningParenthesis Val Operator Val tClosingParenthesis  */
+#line 66 "compilateur.y"
+                                                                            { Parse_Arith((yyvsp[-2].nb)); }
+#line 1420 "y.tab.c"
+    break;
+
+  case 39: /* Operator: tPlus  */
+#line 68 "compilateur.y"
+                     { (yyval.nb) = ADD ; }
+#line 1426 "y.tab.c"
+    break;
+
+  case 40: /* Operator: tMinus  */
+#line 69 "compilateur.y"
+                     { (yyval.nb) = SOU ; }
+#line 1432 "y.tab.c"
+    break;
+
+  case 41: /* Operator: tMult  */
+#line 70 "compilateur.y"
+                     { (yyval.nb) = MUL ; }
+#line 1438 "y.tab.c"
+    break;
+
+  case 42: /* Operator: tDiv  */
+#line 71 "compilateur.y"
+                     { (yyval.nb) = DIV ; }
+#line 1444 "y.tab.c"
+    break;
+
+  case 43: /* Operator: tEqual  */
+#line 72 "compilateur.y"
+                     { (yyval.nb) = EQU ; }
+#line 1450 "y.tab.c"
+    break;
+
+  case 44: /* Operator: tSup  */
+#line 73 "compilateur.y"
+                     { (yyval.nb) = SUP ; }
+#line 1456 "y.tab.c"
+    break;
+
+  case 45: /* Operator: tInf  */
+#line 74 "compilateur.y"
+                     { (yyval.nb) = INF ; }
+#line 1462 "y.tab.c"
+    break;
+
+
+#line 1466 "y.tab.c"
 
       default: break;
     }
@@ -1601,7 +1655,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 75 "compilateur.y"
+#line 77 "compilateur.y"
 
 
 void yyerror(char *s) { fprintf(stderr, "%s\n", s); printf("error TdS: \n") ;  print_TdS() ; exit(-1); }

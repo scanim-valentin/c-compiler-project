@@ -126,4 +126,27 @@ void Parse_EndElse() {
     fseek(file, 0, 2) ;
 }
 
+void Parse_InitWhile(){
+    printf("init while\n") ;
+    push_debut(ftell(file) / taille_instruction + 1) ;
+}
+
+void Parse_While(){
+    printf("while\n") ;
+    int cond = pop_TdS();
+    Parse_Instruction(JMF, cond, 0, 0) ;
+    push_debut(ftell(file) / taille_instruction) ;
+}
+
+void Parse_EndWhile() {
+    printf("end while\n") ;
+    unsigned int num_instruction_jmf = pop_debut() ;
+    unsigned int num_instruction_init = pop_debut() ;
+    //-1 car on jump avant le jump conditionnel initial
+    Parse_Instruction(JMP, num_instruction_init, 0, 0) ;
+    unsigned int num_instruction_jmp = ftell(file) / taille_instruction ;
+    fseek(file,num_instruction_jmf * taille_instruction - 2, 0) ;
+    fprintf(file, "%c", num_instruction_jmp + 1) ;
+    fseek(file, 0, 2) ;
+}
 

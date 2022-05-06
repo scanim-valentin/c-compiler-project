@@ -11,7 +11,7 @@ void yyerror(char *s);
 #define TAILLE_ZONE_MEMOIRE_TEMP 1000 ;
 
 %}
-%token tDeclareInt  tDeclareConstInt tOpeningBracket tClosingBracket tWhile tElse tIf tMain  tPlus  tMinus  tMult  tDiv  tEqual  tOpeningParenthesis  tClosingParenthesis  tNewline tPointVirgule tVirgule tPrintf
+%token tDeclareInt  tDeclareConstInt tOpeningBracket tClosingBracket tWhile tElse tIf tMain  tPlus  tMinus  tMult  tDiv  tSup tInf tEqual tAssign tOpeningParenthesis  tClosingParenthesis  tNewline tPointVirgule tVirgule tPrintf
 %token <nb> tValueInt
 %token <var> tVarName
 %token <nb_exp> tValueExp
@@ -38,14 +38,13 @@ void yyerror(char *s);
     
     InstructionElse : tElse {printf("tElse\n");}  Bloc {printf("Post Bloc Instruction Else\n");}  | ;
 
-    InstructionWhile : tWhile tOpeningParenthesis Val tClosingParenthesis Bloc;
-                    ;
+    InstructionWhile : tWhile { Parse_InitWhile() ; } tOpeningParenthesis Val tClosingParenthesis { Parse_While() ; } Bloc { Parse_EndWhile() ; };
 
     Printf : tPrintf tOpeningParenthesis Val tClosingParenthesis { Parse_printf() ; } 
             ;
 
     Declaration : DeclarationType VarName { push_TdS($2, $1) ; }
-                | DeclarationType VarName { push_TdS($2, $1) ; } tEqual Val { Parse_Copy($2) ; }
+                | DeclarationType VarName { push_TdS($2, $1) ; } tAssign Val { Parse_Copy($2) ; }
                 ;
 
     DeclarationType : tDeclareConstInt { $$ = "const_int" ; }
@@ -56,7 +55,7 @@ void yyerror(char *s);
             | tVarName { $$ = $1 ; }
             ;
 
-    Assignation : tVarName tEqual Val { Parse_Copy($1) ; }
+    Assignation : tVarName tAssign Val { Parse_Copy($1) ; }
                 ;
 
     Val : tVarName { Parse_Copy_To_TdS_Top($1) ; }
@@ -70,6 +69,9 @@ void yyerror(char *s);
             | tMinus { $$ = SOU ; }
             | tMult  { $$ = MUL ; }
             | tDiv   { $$ = DIV ; }
+            | tEqual { $$ = EQU ; }
+            | tSup   { $$ = SUP ; }
+            | tInf   { $$ = INF ; }
             ;
 
 %%

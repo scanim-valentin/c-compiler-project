@@ -15,7 +15,10 @@
 "-" return tMinus ;
 "*" return tMult ;
 "/" return tDiv ;
-"=" return tEqual ;
+"==" return tEqual;
+"<" return tInf ;
+">" return tSup ;
+"=" return tAssign ;
 "(" return tOpeningParenthesis ;
 ")" return tClosingParenthesis ;
 "," return tVirgule;

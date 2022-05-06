@@ -1,18 +1,9 @@
 main()
 {
-	if(1){
-		printf(1) ;
-		if(0){
-			printf(2) ;
-		}else{
-			printf(3) ;
-			if(1){
-				printf(6) ;
-			}
-		}
-	}else{
-		printf(4) ;
+	int i = 0 ;
+	while( (i < 5) ){
+		i = (i + 1) ;
+		printf(i);
 	}
-	printf(5) ;
 }
 

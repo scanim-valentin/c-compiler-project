@@ -55,8 +55,22 @@ void Parse_Else() ;
 //Complete le jump conditionnel du ELSE a partir du numero de l'instruction courante
 void Parse_EndElse() ;
 
+////Gestion du WHILE :
+
+// Maneuvre qui ne parse rien mais qui push le numero d'instruction AVANT la condition (afin de la reevaluer ulterieurement)
+void Parse_InitWhile() ;
+
+// Ecrit le jump avec un numero d'instruction cible a completer et complete le jump conditionnel du WHILE a partir du numero de l'instruction courante
+void Parse_While() ;
+
+// Ecrit le jump avec le numero d'instruction conduisant au jump conditionnel du WHILE et complete le jump conditionnel du WHILE a partir du numero de l'instruction courante
+void Parse_EndWhile() ;
+
+////Gestion de la profondeur :
+//Incremente la profondeur
 void Parse_InitBloc() ;
 
 //Vide la table des symboles locaux pour le bloc et diminue la profondeur (scope)
 void Parse_EndBloc() ; 
+
 #endif
