@@ -117,7 +117,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 20 "compilateur.y"
+#line 19 "compilateur.y"
  int nb; char * var; double nb_exp; 
 
 #line 124 "y.tab.h"
