@@ -1,10 +1,12 @@
 %{
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "y.tab.h"
 #include "include/ts.h"
+
 %}
-%option noyywrap
+%option noyywrap yylineno
 %%
 [ \t]+$? {}; /*Ignoring spaces at the end of a line*/
 

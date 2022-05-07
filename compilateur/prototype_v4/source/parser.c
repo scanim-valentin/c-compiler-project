@@ -78,24 +78,26 @@ void Parse_Ref(){
 }
 
 void Parse_ApplyRef(){
-    unsigned int var_addr = pop_TdS();
-    unsigned int dest_addr = pushTemp_TdS("int") ;
+    if(ref_level != 0){
+        unsigned int var_addr = pop_TdS();
+        unsigned int dest_addr = pushTemp_TdS("int") ;
 
-    // On souhaite obtenir la reference de la variable
-    while(ref_level < 0){
-        Parse_Instruction(AFC, dest_addr, var_addr, 0) ;
-        var_addr = dest_addr ;
-        ref_level++ ;
-        printf("apply ref_level = %d \n", ref_level) ;
-    }
+        // On souhaite obtenir la reference de la variable
+        while(ref_level < 0){
+            Parse_Instruction(AFC, dest_addr, var_addr, 0) ;
+            var_addr = dest_addr ;
+            ref_level++ ;
+            printf("apply ref_level = %d \n", ref_level) ;
+        }
 
-    // On souhaite proceder a un dereferencement de la variable
-    while(ref_level > 0){
-        Parse_Instruction(COP, dest_addr, var_addr, 0) ;
-        var_addr = dest_addr ;
-        ref_level-- ;
-        printf("apply ref_level = %d \n", ref_level) ;
+        // On souhaite proceder a un dereferencement de la variable
+        while(ref_level > 0){
+            Parse_Instruction(COP, dest_addr, var_addr, 0) ;
+            var_addr = dest_addr ;
+            ref_level-- ;
+            printf("apply ref_level = %d \n", ref_level) ;
 
+        }
     }
 }
 
