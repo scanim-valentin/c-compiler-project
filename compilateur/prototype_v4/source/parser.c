@@ -1,0 +1,194 @@
+#include "../include/parser.h"
+#include "../include/ts.h"
+#include "string.h"
+
+
+FILE* file ; //Fichier qui contient les instructions codées tel qu'indiqué dans le sujet
+
+//Création du fichier qui va accueillir le code compilé
+void Parse_Init(char * name){
+    char buff_name[50];
+    strcpy(buff_name,name) ;
+    file = fopen(strcat(buff_name,".asm"), "wb") ;
+    strcpy(buff_name,name) ;
+    printf("Created assembly file %s\n",name) ;
+}
+
+//Fermeture du fichier après compilation
+void Parse_End(){
+    fclose(file) ;
+    printf("Closed assembly file \n") ;
+}
+
+
+// Instructions à 1 / 2 / 3 opérandes (avec bourage de 0 si besoin)
+void Parse_Instruction(ASM Instruct, int P1, int P2, int P3){
+    fprintf(file, "%c%c%c%c", Instruct, P1, P2, P3) ;
+}
+
+//On écrit l'instruction à partir des adresses du sommet de la pile
+void Parse_Arith(ASM OP) {
+    int P1 = popTemp_TdS() ;
+    int P2 = popTemp_TdS() ;
+    int ret = pushTemp_TdS("int") ; //A changer plus tard
+    Parse_Instruction(OP,ret,P2,P1) ; // !! P2 - P1
+}
+
+
+void Parse_Copy_To_TdS_Top(char * var) {
+    int source = getOffset_TdS(var) ;
+    int dest = pushTemp_TdS("int");
+    Parse_Instruction(COP, dest, source, 0) ; 
+}
+
+void Parse_AllocateTemp(int value, char * type){
+    int addr = pushTemp_TdS(type) ;
+    Parse_Instruction(AFC, addr, value, 0) ;
+}
+
+void Parse_Copy(char * var_dest){
+    int source = popTemp_TdS() ;
+    int dest = getOffset_TdS(var_dest) ;
+    Parse_Instruction(COP, dest, source, 0) ;
+}
+
+void Parse_printf() {
+    int source = popTemp_TdS() ;
+    Parse_Instruction(PRI, source, 0, 0) ;
+}
+
+//Gestion du referencement / dereferencement (pointeurs)
+/* Exemples: ***a  --> ref_level =  3
+               &a  --> ref_level = -1
+             &*&a  --> ref_level = -1
+        &*&*&*&*a  --> ref_level =  0
+   Utiliser une telle variable globale présente l'avantage d'eliminer les instructions qui s'annule entre elles (referencements puis dereferencements consecutifs)
+*/
+int ref_level = 0 ;
+
+void Parse_Unref(){
+    ref_level ++ ;
+    printf("unref ref_level = %d \n", ref_level) ;
+}
+
+void Parse_Ref(){
+    ref_level -- ;
+    printf("  ref ref_level = %d \n", ref_level) ;
+
+}
+
+void Parse_ApplyRef(){
+    unsigned int var_addr = pop_TdS();
+    unsigned int dest_addr = pushTemp_TdS("int") ;
+
+    // On souhaite obtenir la reference de la variable
+    while(ref_level < 0){
+        Parse_Instruction(AFC, dest_addr, var_addr, 0) ;
+        var_addr = dest_addr ;
+        ref_level++ ;
+        printf("apply ref_level = %d \n", ref_level) ;
+    }
+
+    // On souhaite proceder a un dereferencement de la variable
+    while(ref_level > 0){
+        Parse_Instruction(COP, dest_addr, var_addr, 0) ;
+        var_addr = dest_addr ;
+        ref_level-- ;
+        printf("apply ref_level = %d \n", ref_level) ;
+
+    }
+}
+
+//Gestion des blocs et du scope
+/* 
+Le choix d'utiliser une pile viens de l'impossibilite d'utiliser la table des symbolles pour cela (a part en detournant son utilisation principale a savoir relier des variables a leurs espaces memoires).
+En effet c'est au niveau de la compilation que s'effectue la modifications des jumps  
+*/
+typedef struct debut_bloc{
+    unsigned int num_instruction ;
+    struct debut_bloc * next ;   
+}  DebutBloc ; 
+
+DebutBloc * PilePositionDebutBloc = NULL ;
+ 
+void  push_debut(unsigned int num_instruction){
+	DebutBloc * new_top = malloc(sizeof(DebutBloc)) ; 
+	new_top->num_instruction = num_instruction ;
+	new_top->next = PilePositionDebutBloc ; 
+	PilePositionDebutBloc = new_top ;
+}
+
+unsigned int pop_debut(){
+	DebutBloc * old_top = PilePositionDebutBloc ;
+	unsigned int R = old_top->num_instruction ;  
+	PilePositionDebutBloc = PilePositionDebutBloc->next ;
+	free(old_top) ; 
+	return R ;  
+}
+
+void print_PilePosition(){
+	DebutBloc * aux = PilePositionDebutBloc ; 
+	printf("PilePositions = ") ; 
+	while(aux != NULL){
+		if(aux->next == NULL)
+			printf("%d\n",aux->num_instruction) ; 
+		else
+			printf("%d | ",aux->num_instruction) ;
+		aux = aux->next ;  
+	}
+}
+
+
+//// Gestion des blocs conditionnel
+unsigned int taille_instruction = 4 ;
+
+//Gestion du IF
+void Parse_If() {
+    int cond = pop_TdS();
+    Parse_Instruction(JMF, cond, 0, 0) ;
+    push_debut(ftell(file) / taille_instruction) ;
+}
+
+void Parse_Else() {
+    Parse_Instruction(JMP, 0, 0, 0) ;
+    unsigned int num_instruction_jmp = ftell(file) / taille_instruction ;
+    printf("num_instruction_jmp %d \n", num_instruction_jmp) ;
+    fseek(file,pop_debut() * taille_instruction - 2, 0) ;
+    fprintf(file, "%c", num_instruction_jmp + 1) ;
+    fseek(file, 0, 2) ;    
+    push_debut(num_instruction_jmp) ;
+}
+
+void Parse_EndElse() {
+    unsigned int num_instruction_fin = ftell(file) / taille_instruction;
+    printf("num_instruction_fin %d \n", num_instruction_fin) ;
+    fseek(file,pop_debut() * taille_instruction - 3, 0) ;
+    fprintf(file, "%c", num_instruction_fin + 1) ;
+    fseek(file, 0, 2) ;
+}
+
+//Gestion du WHILE
+void Parse_InitWhile(){
+    printf("init while\n") ;
+    push_debut(ftell(file) / taille_instruction + 1) ;
+}
+
+void Parse_While(){
+    printf("while\n") ;
+    int cond = pop_TdS();
+    Parse_Instruction(JMF, cond, 0, 0) ;
+    push_debut(ftell(file) / taille_instruction) ;
+}
+
+void Parse_EndWhile() {
+    printf("end while\n") ;
+    unsigned int num_instruction_jmf = pop_debut() ;
+    unsigned int num_instruction_init = pop_debut() ;
+    //-1 car on jump avant le jump conditionnel initial
+    Parse_Instruction(JMP, num_instruction_init, 0, 0) ;
+    unsigned int num_instruction_jmp = ftell(file) / taille_instruction ;
+    fseek(file,num_instruction_jmf * taille_instruction - 2, 0) ;
+    fprintf(file, "%c", num_instruction_jmp + 1) ;
+    fseek(file, 0, 2) ;
+}
+
