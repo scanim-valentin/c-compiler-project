@@ -1,8 +1,0 @@
-# compile vhdl design source files
-vhdl xil_defaultlib  \
-"../../../../banc_memoire.srcs/sources_1/new/data_memory.vhd" \
-"../../../../banc_memoire.srcs/sources_1/new/inst_memory.vhd" \
-"../../../../banc_memoire.srcs/sim_1/new/test_mem.vhd" \
-
-# Do not sort compile order
-nosort

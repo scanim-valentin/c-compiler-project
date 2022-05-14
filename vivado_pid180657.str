@@ -1,0 +1,130 @@
+/*
+
+Xilinx Vivado v2018.2 (64-bit) [Major: 2018, Minor: 2]
+SW Build: 2258646 on Thu Jun 14 20:02:38 MDT 2018
+IP Build: 2256618 on Thu Jun 14 22:10:49 MDT 2018
+
+Process ID: 180657
+License: Customer
+
+Current time: 	Fri May 13 17:35:33 CEST 2022
+Time zone: 	Central European Time (Europe/Paris)
+
+OS: Ubuntu
+OS Version: 5.13.0-41-generic
+OS Architecture: amd64
+Available processors (cores): 64
+
+Display: :10.0
+Screen size: 1920x1080
+Screen resolution (DPI): 96
+Available screens: 1
+Available disk space: 357 GB
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	1.8.0_112 64-bit
+Java home: 	/usr/local/insa/Xilinx.VIVADO/Vivado/2018.2/tps/lnx64/jre
+Java executable location: 	/usr/local/insa/Xilinx.VIVADO/Vivado/2018.2/tps/lnx64/jre/bin/java
+Java initial memory (-Xms): 	128 MB
+Java maximum memory (-Xmx):	 2 GB
+
+
+User name: 	guerbett
+User home directory: /home/guerbett
+User working directory: /home/guerbett/Repositories/c-compiler-project
+User country: 	FR
+User language: 	fr
+User locale: 	fr_FR
+
+RDI_BASEROOT: /usr/local/insa/Xilinx.VIVADO/Vivado
+HDI_APPROOT: /usr/local/insa/Xilinx.VIVADO/Vivado/2018.2
+RDI_DATADIR: /usr/local/insa/Xilinx.VIVADO/Vivado/2018.2/data
+RDI_BINDIR: /usr/local/insa/Xilinx.VIVADO/Vivado/2018.2/bin
+
+Vivado preferences file location: /home/guerbett/.Xilinx/Vivado/2018.2/vivado.xml
+Vivado preferences directory: /home/guerbett/.Xilinx/Vivado/2018.2/
+Vivado layouts directory: /home/guerbett/.Xilinx/Vivado/2018.2/layouts
+PlanAhead jar file location: 	/usr/local/insa/Xilinx.VIVADO/Vivado/2018.2/lib/classes/planAhead.jar
+Vivado log file location: 	/home/guerbett/Repositories/c-compiler-project/vivado.log
+Vivado journal file location: 	/home/guerbett/Repositories/c-compiler-project/vivado.jou
+Engine tmp dir: 	./.Xil/Vivado-180657-srv-tp04
+
+Xilinx Environment Variables
+----------------------------
+XILINX: /usr/local/insa/Xilinx.VIVADO/Vivado/2018.2/ids_lite/ISE
+XILINXD_LICENSE_FILE: /usr/local/insa/Xilinx.VIVADO/Xilinx.lic
+XILINX_DSP: /usr/local/insa/Xilinx.VIVADO/Vivado/2018.2/ids_lite/ISE
+XILINX_PLANAHEAD: /usr/local/insa/Xilinx.VIVADO/Vivado/2018.2
+XILINX_SDK: /usr/local/insa/Xilinx.VIVADO/SDK/2018.2
+XILINX_VIVADO: /usr/local/insa/Xilinx.VIVADO/Vivado/2018.2
+XILINX_VIVADO_HLS: /usr/local/insa/Xilinx.VIVADO/Vivado/2018.2
+
+
+GUI allocated memory:	183 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 1,072 MB
+
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// [GUI Memory]: 80 MB (+80931kb) [00:00:09]
+// [Engine Memory]: 1,066 MB (+965868kb) [00:00:09]
+// HMemoryUtils.trashcanNow. Engine heap size: 1,074 MB. GUI used memory: 44 MB. Current time: 5/13/22 5:35:36 PM CEST
+selectButton(PAResourceEtoH.GettingStartedView_OPEN_PROJECT, "Open Project"); // x (w, ck)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_PROJECT
+setFileChooser("/home/guerbett/Repositories/c-compiler-project/archi_mat/pipeline/pipeline.xpr");
+// bx (ck):  Open Project : addNotify
+// Opening Vivado Project: /home/guerbett/Repositories/c-compiler-project/archi_mat/pipeline/pipeline.xpr. Version: Vivado v2018.2 
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// Tcl Message: open_project /home/guerbett/Repositories/c-compiler-project/archi_mat/pipeline/pipeline.xpr 
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_NEW
+// Tcl Message: open_project /home/guerbett/Repositories/c-compiler-project/archi_mat/pipeline/pipeline.xpr 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified 
+// [Engine Memory]: 1,136 MB (+18465kb) [00:00:24]
+// Tcl Message: INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/usr/local/insa/Xilinx.VIVADO/Vivado/2018.2/data/ip'. 
+// TclEventType: PROJECT_NEW
+// HMemoryUtils.trashcanNow. Engine heap size: 1,195 MB. GUI used memory: 46 MB. Current time: 5/13/22 5:35:51 PM CEST
+// Project name: pipeline; location: /home/guerbett/Repositories/c-compiler-project/archi_mat/pipeline; part: xc7a35tcpg236-1
+// 'i' command handler elapsed time: 15 seconds
+// [Engine Memory]: 1,195 MB (+1419kb) [00:00:31]
+// Tcl Message: open_project: Time (s): cpu = 00:00:13 ; elapsed = 00:00:07 . Memory (MB): peak = 6307.590 ; gain = 82.617 ; free physical = 119365 ; free virtual = 144662 
+dismissDialog("Open Project"); // bx (ck)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Tcl Message: update_compile_order -fileset sources_1 
+// Elapsed time: 387 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, pipeline(Behavioral) (pipeline.vhd)]", 5, false); // B (D, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, pipeline(Behavioral) (pipeline.vhd)]", 5, false, false, false, false, false, true); // B (D, ck) - Double Click
+// [GUI Memory]: 95 MB (+11577kb) [00:07:09]
+// [Engine Memory]: 1,267 MB (+12797kb) [00:07:16]
+// HMemoryUtils.trashcanNow. Engine heap size: 1,267 MB. GUI used memory: 48 MB. Current time: 5/13/22 5:42:42 PM CEST
+// [GUI Memory]: 103 MB (+4312kb) [00:07:41]
+// [GUI Memory]: 110 MB (+1146kb) [00:08:06]
+// [GUI Memory]: 115 MB (+192kb) [00:09:25]
+// [GUI Memory]: 122 MB (+290kb) [00:09:50]
+// [GUI Memory]: 129 MB (+1311kb) [00:11:10]
+// HMemoryUtils.trashcanNow. Engine heap size: 1,330 MB. GUI used memory: 47 MB. Current time: 5/13/22 5:55:21 PM CEST
+// [Engine Memory]: 1,330 MB (+99kb) [00:21:02]
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 48 MB. Current time: 5/13/22 6:25:20 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/13/22 6:55:22 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/13/22 7:25:21 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/13/22 7:55:20 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/13/22 8:25:20 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 45 MB. Current time: 5/13/22 8:55:20 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/13/22 9:25:20 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/13/22 9:55:20 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/13/22 10:25:20 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/13/22 10:55:20 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/13/22 11:25:20 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/13/22 11:55:20 PM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/14/22 12:25:20 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/14/22 12:55:20 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 46 MB. Current time: 5/14/22 1:25:20 AM CEST
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 45 MB. Current time: 5/14/22 1:55:20 AM CEST
