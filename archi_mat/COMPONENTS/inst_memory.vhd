@@ -46,7 +46,11 @@ signal memory: mem := (others => X"00000000");
 begin
     memory(0) <= X"06030100" ; -- test AFC
     memory(1) <= X"05040300" ; -- test COP
-        
+    memory(2) <= X"01050304" ; -- test ADD
+    memory(3) <= X"02060504" ; -- test SOU
+    memory(4) <= X"03070505" ; -- test MUL
+    memory(5) <= X"04080705" ; -- test DIV
+                
      process
     begin
         wait until CLK_INST'event and CLK_INST = '1' ;

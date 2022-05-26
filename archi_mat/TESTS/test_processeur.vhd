@@ -62,7 +62,7 @@ architecture Behavioral of test_processeur_v1 is
         
     Instruct_select: process
     begin
-        for instruction_number in 0 to 255 loop
+        for instruction_number in 0 to 1 loop
             local_pc <= conv_std_logic_vector(instruction_number,local_pc'length);
             wait for 50 ns ; 
         end loop;
