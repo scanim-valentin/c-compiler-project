@@ -1,16 +1,18 @@
-GRM=prototype_v2.y
-LEX=prototype_v2.l
-BIN=prototype_v2
+GRM=prototype.y
+LEX=prototype.l
+BIN=prototype
 
 CC=gcc
-CFLAGS=-Wall -g
+LIB_FOLDER=./source
+CFLAGS=-Wall -g $(LIB_FOLDER)/*.c
 
-OBJ=y.tab.o lex.yy.o main.o
+OBJ=y.tab.o lex.yy.o
+
 
 all: $(BIN)
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 y.tab.c: $(GRM)
 	yacc -d $<
@@ -22,5 +24,5 @@ $(BIN): $(OBJ)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@
 
 clean:
-	rm $(OBJ) y.tab.c y.tab.h lex.yy.c
+	rm -f $(OBJ) $(BIN) ./test_output/* y.tab.c y.tab.h lex.yy.c *.asm *.o
 

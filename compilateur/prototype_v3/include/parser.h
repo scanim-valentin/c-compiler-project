@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 
-//Code des instruction tel qu'indiqué dans le sujet
+//Code des instructions tel qu'indique dans le sujet
 typedef enum{
     ADD = 1,
     MUL = 2,
@@ -21,13 +21,13 @@ typedef enum{
     PRI = 12
 } ASM;
 
-//Affection simple (valeur -> memoire)
+//Affectation directe (remplissage du contenu d'une case memoire par une valeur brute)
 void Parse_Affect(char * var_name, int var) ;
 
-//Affection simple (valeur -> memoire)
+//Affectation indirecte (copie du contenu d'une case memoire dans une autre)
 void Parse_Copy(char * var_name) ;
 
-//Opérations arithmétique et comparaisons
+//Operations arithmetiques et comparaisons
 void Parse_Arith(ASM OP) ;
 
 // Allocation d'une variable temporaire
@@ -42,8 +42,18 @@ void Parse_Init(char * name);
 // Fermeture du fichier qui contient le binaire du programme
 void Parse_End();
 
-// PRI
+// Affiche dans la sortie standard la reference indique
 void Parse_printf();
+
+//// Gestion du referencement / dereferencement (pointeurs)
+// Augmente le niveau de referencement
+void Parse_Unref();
+
+// Diminue le niveau de referencement
+void Parse_Ref();
+
+// Applique le niveau de referencement lors de l'evaluation du symboles
+void Parse_ApplyRef() ;
 
 //// Gestion du IF :
 // Ecrit le jump conditionnel avec un numero d'instruction cible a completer et retient le numero de l'instruction courante

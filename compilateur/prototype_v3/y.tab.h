@@ -59,21 +59,22 @@ extern int yydebug;
     tMain = 265,
     tPlus = 266,
     tMinus = 267,
-    tMult = 268,
+    tStar = 268,
     tDiv = 269,
     tSup = 270,
     tInf = 271,
     tEqual = 272,
     tAssign = 273,
-    tOpeningParenthesis = 274,
-    tClosingParenthesis = 275,
-    tNewline = 276,
-    tPointVirgule = 277,
-    tVirgule = 278,
-    tPrintf = 279,
-    tValueInt = 280,
-    tVarName = 281,
-    tValueExp = 282
+    tEsp = 274,
+    tOpeningParenthesis = 275,
+    tClosingParenthesis = 276,
+    tNewline = 277,
+    tPointVirgule = 278,
+    tVirgule = 279,
+    tPrintf = 280,
+    tValueInt = 281,
+    tVarName = 282,
+    tValueExp = 283
   };
 #endif
 /* Tokens.  */
@@ -87,30 +88,31 @@ extern int yydebug;
 #define tMain 265
 #define tPlus 266
 #define tMinus 267
-#define tMult 268
+#define tStar 268
 #define tDiv 269
 #define tSup 270
 #define tInf 271
 #define tEqual 272
 #define tAssign 273
-#define tOpeningParenthesis 274
-#define tClosingParenthesis 275
-#define tNewline 276
-#define tPointVirgule 277
-#define tVirgule 278
-#define tPrintf 279
-#define tValueInt 280
-#define tVarName 281
-#define tValueExp 282
+#define tEsp 274
+#define tOpeningParenthesis 275
+#define tClosingParenthesis 276
+#define tNewline 277
+#define tPointVirgule 278
+#define tVirgule 279
+#define tPrintf 280
+#define tValueInt 281
+#define tVarName 282
+#define tValueExp 283
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 19 "compilateur.y"
+#line 14 "compilateur.y"
  int nb; char * var; double nb_exp; 
 
-#line 114 "y.tab.h"
+#line 116 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

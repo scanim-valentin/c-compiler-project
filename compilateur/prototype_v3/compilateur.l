@@ -1,10 +1,12 @@
 %{
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "y.tab.h"
 #include "include/ts.h"
+
 %}
-%option noyywrap
+%option noyywrap yylineno
 %%
 [ \t]+$? {}; /*Ignoring spaces at the end of a line*/
 
@@ -13,15 +15,16 @@
 "main()" return tMain  ;
 "+" return tPlus ;
 "-" return tMinus ;
-"*" return tMult ;
+"*" return tStar ;
 "/" return tDiv ;
-"==" return tEqual;
+"&" return tEsp ;
+"==" return tEqual ;
 "<" return tInf ;
 ">" return tSup ;
 "=" return tAssign ;
 "(" return tOpeningParenthesis ;
 ")" return tClosingParenthesis ;
-"," return tVirgule;
+"," return tVirgule ;
 "\;" return tPointVirgule;
 "if" return tIf;
 "else" return tElse;

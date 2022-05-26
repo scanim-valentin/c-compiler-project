@@ -34,9 +34,6 @@ void Parse_Arith(ASM OP) {
     Parse_Instruction(OP,ret,P2,P1) ; // !! P2 - P1
 }
 
-//Gestion des blocs et du scope
-
-
 
 void Parse_Copy_To_TdS_Top(char * var) {
     int source = getOffset_TdS(var) ;
@@ -60,8 +57,51 @@ void Parse_printf() {
     Parse_Instruction(PRI, source, 0, 0) ;
 }
 
-//Gestion du IF
+//Gestion du referencement / dereferencement (pointeurs)
+/* Exemples: ***a  --> ref_level =  3
+               &a  --> ref_level = -1
+             &*&a  --> ref_level = -1
+        &*&*&*&*a  --> ref_level =  0
+   Utiliser une telle variable globale présente l'avantage d'eliminer les instructions qui s'annule entre elles (referencements puis dereferencements consecutifs)
+*/
+int ref_level = 0 ;
 
+void Parse_Unref(){
+    ref_level ++ ;
+    printf("unref ref_level = %d \n", ref_level) ;
+}
+
+void Parse_Ref(){
+    ref_level -- ;
+    printf("  ref ref_level = %d \n", ref_level) ;
+
+}
+
+void Parse_ApplyRef(){
+    if(ref_level != 0){
+        unsigned int var_addr = pop_TdS();
+        unsigned int dest_addr = pushTemp_TdS("int") ;
+
+        // On souhaite obtenir la reference de la variable
+        while(ref_level < 0){
+            Parse_Instruction(AFC, dest_addr, var_addr, 0) ;
+            var_addr = dest_addr ;
+            ref_level++ ;
+            printf("apply ref_level = %d \n", ref_level) ;
+        }
+
+        // On souhaite proceder a un dereferencement de la variable
+        while(ref_level > 0){
+            Parse_Instruction(COP, dest_addr, var_addr, 0) ;
+            var_addr = dest_addr ;
+            ref_level-- ;
+            printf("apply ref_level = %d \n", ref_level) ;
+
+        }
+    }
+}
+
+//Gestion des blocs et du scope
 /* 
 Le choix d'utiliser une pile viens de l'impossibilite d'utiliser la table des symbolles pour cela (a part en detournant son utilisation principale a savoir relier des variables a leurs espaces memoires).
 En effet c'est au niveau de la compilation que s'effectue la modifications des jumps  
@@ -100,8 +140,11 @@ void print_PilePosition(){
 	}
 }
 
-unsigned int taille_instruction = 4 ; 
 
+//// Gestion des blocs conditionnel
+unsigned int taille_instruction = 4 ;
+
+//Gestion du IF
 void Parse_If() {
     int cond = pop_TdS();
     Parse_Instruction(JMF, cond, 0, 0) ;
@@ -126,6 +169,7 @@ void Parse_EndElse() {
     fseek(file, 0, 2) ;
 }
 
+//Gestion du WHILE
 void Parse_InitWhile(){
     printf("init while\n") ;
     push_debut(ftell(file) / taille_instruction + 1) ;
