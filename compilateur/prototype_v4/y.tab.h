@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.8.2.  */
+/* A Bison parser, made by GNU Bison 3.5.1.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
    Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -31,9 +31,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-   especially those whose name start with YY_ or yy_.  They are
-   private implementation details that can be changed or removed.  */
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
 
 #ifndef YY_YY_Y_TAB_H_INCLUDED
 # define YY_YY_Y_TAB_H_INCLUDED
@@ -45,49 +44,40 @@
 extern int yydebug;
 #endif
 
-/* Token kinds.  */
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    YYEMPTY = -2,
-    YYEOF = 0,                     /* "end of file"  */
-    YYerror = 256,                 /* error  */
-    YYUNDEF = 257,                 /* "invalid token"  */
-    tDeclareInt = 258,             /* tDeclareInt  */
-    tDeclareConstInt = 259,        /* tDeclareConstInt  */
-    tOpeningBracket = 260,         /* tOpeningBracket  */
-    tClosingBracket = 261,         /* tClosingBracket  */
-    tWhile = 262,                  /* tWhile  */
-    tElse = 263,                   /* tElse  */
-    tIf = 264,                     /* tIf  */
-    tMain = 265,                   /* tMain  */
-    tPlus = 266,                   /* tPlus  */
-    tMinus = 267,                  /* tMinus  */
-    tStar = 268,                   /* tStar  */
-    tDiv = 269,                    /* tDiv  */
-    tSup = 270,                    /* tSup  */
-    tInf = 271,                    /* tInf  */
-    tEqual = 272,                  /* tEqual  */
-    tAssign = 273,                 /* tAssign  */
-    tEsp = 274,                    /* tEsp  */
-    tOpeningParenthesis = 275,     /* tOpeningParenthesis  */
-    tClosingParenthesis = 276,     /* tClosingParenthesis  */
-    tNewline = 277,                /* tNewline  */
-    tPointVirgule = 278,           /* tPointVirgule  */
-    tVirgule = 279,                /* tVirgule  */
-    tPrintf = 280,                 /* tPrintf  */
-    tValueInt = 281,               /* tValueInt  */
-    tVarName = 282,                /* tVarName  */
-    tValueExp = 283                /* tValueExp  */
+    tDeclareInt = 258,
+    tDeclareConstInt = 259,
+    tOpeningBracket = 260,
+    tClosingBracket = 261,
+    tWhile = 262,
+    tElse = 263,
+    tIf = 264,
+    tMain = 265,
+    tPlus = 266,
+    tMinus = 267,
+    tStar = 268,
+    tDiv = 269,
+    tSup = 270,
+    tInf = 271,
+    tEqual = 272,
+    tAssign = 273,
+    tEsp = 274,
+    tOpeningParenthesis = 275,
+    tClosingParenthesis = 276,
+    tNewline = 277,
+    tPointVirgule = 278,
+    tVirgule = 279,
+    tPrintf = 280,
+    tValueInt = 281,
+    tVarName = 282,
+    tValueExp = 283
   };
-  typedef enum yytokentype yytoken_kind_t;
 #endif
-/* Token kinds.  */
-#define YYEMPTY -2
-#define YYEOF 0
-#define YYerror 256
-#define YYUNDEF 257
+/* Tokens.  */
 #define tDeclareInt 258
 #define tDeclareConstInt 259
 #define tOpeningBracket 260
@@ -122,7 +112,7 @@ union YYSTYPE
 #line 14 "compilateur.y"
  int nb; char * var; double nb_exp; 
 
-#line 126 "y.tab.h"
+#line 116 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -133,8 +123,6 @@ typedef union YYSTYPE YYSTYPE;
 
 extern YYSTYPE yylval;
 
-
 int yyparse (void);
-
 
 #endif /* !YY_YY_Y_TAB_H_INCLUDED  */

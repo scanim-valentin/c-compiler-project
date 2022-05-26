@@ -1,5 +1,5 @@
 
-#line 2 "lex.yy.c"
+#line 3 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -462,8 +462,8 @@ unsigned int getElementFromInst(int place){
 	const char destStr[3] = { inst_mem[currentInst][2*place], inst_mem[currentInst][2*place+1], '\0' } ; 
 	return (unsigned int)strtol(destStr, NULL, 16) ;		 
 }
-#line 465 "lex.yy.c"
 #line 466 "lex.yy.c"
+#line 467 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -683,7 +683,7 @@ YY_DECL
 #line 20 "emulateur.l"
 
 
-#line 686 "lex.yy.c"
+#line 687 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -754,7 +754,7 @@ YY_RULE_SETUP
 #line 28 "emulateur.l"
 ECHO;
 	YY_BREAK
-#line 757 "lex.yy.c"
+#line 758 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
