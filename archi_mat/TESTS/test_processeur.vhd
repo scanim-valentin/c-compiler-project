@@ -21,6 +21,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL; 
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -58,5 +59,12 @@ architecture Behavioral of test_processeur_v1 is
             local_clk <= not(local_clk);
             wait for Clock_period/2;
         end process;
-local_pc <= X"00" after 10ns;
+        
+    Instruct_select: process
+    begin
+        for instruction_number in 0 to 255 loop
+            local_pc <= conv_std_logic_vector(instruction_number,local_pc'length);
+            wait for 50 ns ; 
+        end loop;
+    end process ; 
 end Behavioral;
