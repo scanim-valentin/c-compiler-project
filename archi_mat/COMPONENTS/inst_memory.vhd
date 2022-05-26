@@ -41,8 +41,8 @@ end inst_memory;
 
 architecture Behavioral of inst_memory is
 
-type mem is array (0 to 254) of STD_LOGIC_VECTOR (31 downto 0);
-signal memory: mem := (others => X"00000000");
+type mem is array (0 to 255) of STD_LOGIC_VECTOR (31 downto 0);
+signal memory: mem := (others => X"05030500");
 
 begin
 

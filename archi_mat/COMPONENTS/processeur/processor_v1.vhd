@@ -34,17 +34,21 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- VERSION 1 : INSTRUCTION AFC
 entity processor is
-    Port ( CLK_PROCESSOR : in STD_LOGIC);
+    Port (
+    CLK : in STD_LOGIC;
+    PC : in STD_LOGIC_VECTOR (7 downto 0) := (others => '0')
+--    Debug : in STD_LOGIC;
+--    Res : out STD_LOGIC_VECTOR (7 downto 0)
+    );
+    
 end processor;
 
 architecture Behavioral of processor is
-
-    signal clk : std_logic ;
     
     component pipeline is
         Port ( OP_in,A_in,B_in,C_in  : in STD_LOGIC_VECTOR ( 7 downto 0 );
                OP_out,A_out,B_out,C_out  : out STD_LOGIC_VECTOR ( 7 downto 0 ); 
-               CLK: in STD_LOGIC);
+               CLK: in STD_LOGIC := CLK);
     end component;
     
     ----- Declarations pour les differents etage 
@@ -74,6 +78,7 @@ architecture Behavioral of processor is
                QB : out STD_LOGIC_VECTOR (7 downto 0) ) ;
     end component;
     
+    
     signal W_register, RST_register : STD_LOGIC ;
     signal Addr_A_register, Addr_B_register, Addr_W_register  : STD_LOGIC_VECTOR (3 downto 0);
     signal DATA_register, QA_register, QB_resiter  : STD_LOGIC_VECTOR (7 downto 0);
@@ -97,12 +102,12 @@ begin
         CLK
     ) ;
     
-    ADR_INST <= x"00" ; 
+    ADR_INST <= PC ;
     
-    OP_in_li_di <= OUT_INST(31 downto 24) ; 
+    OP_in_li_di <= OUT_INST(31 downto 24) ;
     A_in_li_di  <= OUT_INST(23 downto 16) ;
     B_in_li_di  <= OUT_INST(15 downto 8 ) ;
-    A_in_li_di  <= OUT_INST(7  downto 0 ) ;
+    C_in_li_di  <= OUT_INST(7  downto 0 ) ;
     
     -- 2eme etage : Banc de registres + DI/EX
     register_file: banc_registres PORT MAP(
@@ -116,7 +121,9 @@ begin
     
     OP_in_di_ex <= OP_out_li_di ; 
     A_in_di_ex  <= A_out_li_di  ;
-    B_in_di_ex  <= B_out_li_di  ;
+    B_in_di_ex  <= B_out_li_di when OP_out_li_di = X"06" else QA_register
+--                   when OP_out_li_di = X"05"
+                   ;
     C_in_di_ex  <= C_out_li_di  ;
     
     -- 3eme etage : ALU + EX/Mem
@@ -142,7 +149,7 @@ begin
     C_in_mem_re  <= C_out_ex_mem  ;
     
     --5eme etage 
-    W_register <= '1' ; 
+    W_register <= '1' when OP_in_mem_re = X"06";
     Addr_W_register <= A_out_mem_re(3 downto 0) ; 
     DATA_register <= B_out_mem_re;
     

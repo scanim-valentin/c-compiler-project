@@ -32,18 +32,31 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity test_processeur_v1 is
---  Port ( );
 end test_processeur_v1;
 
 architecture Behavioral of test_processeur_v1 is
     component processor is
-        port(
-        Clk : in STD_LOGIC 
-              );
-         end COMPONENT ;
-    signal clk: STD_LOGIC := '1';
+        Port (
+        CLK : in STD_LOGIC;
+        PC : in STD_LOGIC_VECTOR (7 downto 0));
+    end COMPONENT ;
+    
+    signal local_clk: STD_LOGIC := '1';
+    signal local_pc: STD_LOGIC_VECTOR (7 downto 0);
+    
     constant Clock_period : Time := 10 ns ;
-begin
-
-
+    
+    begin
+    
+    Label_uut: processor PORT MAP (
+    CLK => local_clk,
+    PC => local_pc
+    );
+    
+    Clock_process: process
+        begin
+            local_clk <= not(local_clk);
+            wait for Clock_period/2;
+        end process;
+local_pc <= X"00" after 10ns;
 end Behavioral;
