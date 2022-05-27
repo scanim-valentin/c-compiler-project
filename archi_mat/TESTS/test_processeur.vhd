@@ -41,7 +41,6 @@ architecture Behavioral of test_processeur_v1 is
         CLK : in STD_LOGIC;
         PC : in STD_LOGIC_VECTOR (7 downto 0));
     end COMPONENT ;
-    
     signal local_clk: STD_LOGIC := '1';
     signal local_pc: STD_LOGIC_VECTOR (7 downto 0);
     
@@ -62,9 +61,11 @@ architecture Behavioral of test_processeur_v1 is
         
     Instruct_select: process
     begin
-        for instruction_number in 0 to 1 loop
+        for instruction_number in 0 to 2 loop
             local_pc <= conv_std_logic_vector(instruction_number,local_pc'length);
             wait for 50 ns ; 
         end loop;
     end process ; 
+
+--    local_pc <= X"00" after 50ns, X"01" after 100ns, X"02" after 150ns, X"03" after 200ns, X"04" after 250ns, X"05" after 300ns;
 end Behavioral;

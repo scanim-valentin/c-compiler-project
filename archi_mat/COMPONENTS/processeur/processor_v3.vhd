@@ -24,7 +24,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
@@ -133,6 +133,7 @@ begin
     
     -- Systematique
     Addr_A_register <= B_out_li_di(3 downto 0) ; 
+    Addr_B_register <= C_out_li_di(3 downto 0) ; 
     
     OP_in_di_ex <= OP_out_li_di ; 
     A_in_di_ex  <= A_out_li_di  ;
@@ -143,7 +144,7 @@ begin
         B_in_di_ex  <= B_out_li_di when X"06" ,
                        QA_register when others ;
         
-    C_in_di_ex  <= C_out_li_di  ;
+    C_in_di_ex  <= QB_resiter  ;
     
     -- 3eme etage : ALU + EX/Mem
     arithmetic_logic_unit: alu PORT MAP(
@@ -162,14 +163,18 @@ begin
     -- Systematique
     A_ALU <= B_out_di_ex ;
     B_ALU <= C_out_di_ex ;
-    Ctrl_ALU <= OP_out_di_ex(2 downto 0) ; 
+    Ctrl_ALU <= "000" when OP_out_di_ex = X"01" else
+                "010" when OP_out_di_ex = X"02" else
+                "001" when OP_out_di_ex = X"03" else
+                "100" when OP_out_di_ex = X"04";
     
     --Multiplexage : si ADD / SOU / MUL / DIV on propage la sortie de l'ALU à partir de B et C en entree
     --               sinon on propage B
     -- Bits concernes par les operations arithmetiques: 000000XXX
-    with OP_out_di_ex(7 downto 3) select 
-            B_in_ex_mem  <=     S_ALU when "00000",
-                                B_out_di_ex  when others ;  
+--    with to_integer(unsigned(OP_out_di_ex)) select 
+--            B_in_ex_mem  <=     S_ALU when 4,
+--                                B_out_di_ex  when others ;  
+    B_in_ex_mem  <= S_ALU when to_integer(unsigned(OP_out_di_ex)) <= 4 else B_out_di_ex;
     
     
     -- 4eme etage : Memoire des donnes + Mem/RE
