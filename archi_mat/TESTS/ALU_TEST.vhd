@@ -61,7 +61,7 @@ Label_uut:ALU PORT MAP (
     Flags => Flags_local
 );
 
-A_local <= x"01" after 5 ns, "11111111" after 10 ns, x"02" after 15 ns, x"ff" after 20 ns, x"01" after 23 ns, x"00" after 26 ns  ;
-B_local <= x"01" after 5 ns, "11111111" after 10 ns, x"02" after 15 ns, x"02" after 20 ns, x"01" after 23 ns, x"FF" after 26 ns  ;
-Ctrl_Alu_local <= "000" after 1 ns, "001" after 11 ns, "010" after 21 ns ;  
+A_local <= x"01" after 5 ns, "11111111" after 10 ns, x"02" after 15 ns, x"ff" after 20 ns, x"01" after 23 ns, x"00" after 26 ns, x"05" after 36 ns ;
+B_local <= x"01" after 5 ns, "11111111" after 10 ns, x"02" after 15 ns, x"02" after 20 ns, x"01" after 23 ns, x"FF" after 26 ns, x"06" after 36 ns   ;
+Ctrl_Alu_local <= "001" after 1 ns, "010" after 11 ns, "011" after 21 ns ;  
 end;

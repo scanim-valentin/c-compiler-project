@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- Ctrl_Alu : '000' : Add ; '001' : Sou ; '010' : Mul ; '100' : Div
+-- Ctrl_Alu : '001' : Add ; '010' : Sou ; '011' : Mul ; '100' : Div (not implemented)
 -- Flags : <N,O,Z,C>
 ----------------------------------------------------------------------------------
 
@@ -54,21 +54,21 @@ begin
         B_Extended <= x"00" & B ;
         
         --add
-        S_Extended <= (A_Extended + B_Extended) when Ctrl_Alu = "000" else
+        S_Extended <= (A_Extended + B_Extended) when Ctrl_Alu = "001" else
         --sou
-                      (A_Extended - B_Extended) when (Ctrl_Alu = "001") else
+                      (A_Extended - B_Extended) when (Ctrl_Alu = "010") else
         --mul
-                      (A * B) when (Ctrl_Alu = "010") ;
+                      (A * B) when (Ctrl_Alu = "011") ;
             
         --Gestion des flags           
         --C (Add)
-        Flags(0) <= '1' when ( (Ctrl_Alu = "000" OR Ctrl_Alu = "001") AND S_Extended(8) = '1') else '0';
+        Flags(0) <= '1' when ( (Ctrl_Alu = "001" OR Ctrl_Alu = "010") AND S_Extended(8) = '1') else '0';
         
         --Z
         Flags(1) <= '1' when S_Extended = X"00" else '0';
         
         --O (Mul)
-        Flags(2) <= '1' when ( (Ctrl_Alu = "010") AND S_Extended(8) = '1') else '0';
+        Flags(2) <= '1' when ( (Ctrl_Alu = "011") AND S_Extended(8) = '1') else '0';
                         
         --N 
         Flags(3) <= '1' when S_Extended < X"00" else '0';
