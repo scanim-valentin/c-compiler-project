@@ -53,7 +53,7 @@ architecture Behavioral of processor is
         
     component control_unit is
                 Port ( CLK : in STD_LOGIC ; 
-                       OP : in STD_LOGIC_VECTOR(2 downto 0) ; 
+                       OP : in STD_LOGIC_VECTOR(7 downto 0) ; 
                        IP : out STD_LOGIC_VECTOR(7 downto 0)
                      );
             end component;
@@ -233,13 +233,16 @@ begin
                 W_register <= '0' ;
             else
                 W_register <= '1' ;
-            end if ;   
+            end if ;  
+ 
     end process ;
+    
+    Addr_W_register <= A_out_mem_re(3 downto 0) ; 
+    DATA_register <= B_out_mem_re;
     --W_register <= '0' when (OP_in_mem_re = X"08" 
     --                     or OP_in_mem_re = X"00") 
      --        else '1' ;
       --         end process ; 
-    Addr_W_register <= A_out_mem_re(3 downto 0) ; 
-    DATA_register <= B_out_mem_re;
+
     
 end Behavioral;

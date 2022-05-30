@@ -34,19 +34,27 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 entity control_unit is
     Port ( CLK : in STD_LOGIC ; 
            OP : in STD_LOGIC_VECTOR(7 downto 0) ; 
-           IP : out STD_LOGIC_VECTOR(7 downto 0)
+           IP : out STD_LOGIC_VECTOR(7 downto 0) := X"00"
          );
 end control_unit;
 
 
 architecture Behavioral of control_unit is
 signal PC : unsigned(7 downto 0) := X"00"; 
+signal cycle : unsigned(7 downto 0) := X"00"; 
+
 begin
     process 
     begin
         wait until CLK'event and CLK = '1' ;
-               PC <= PC + 1 ; 
-               IP <= STD_LOGIC_VECTOR(PC) ; 
+                
+               if cycle > 1 then 
+                    PC <= PC + 1 ; 
+                    IP <= STD_LOGIC_VECTOR(PC) ;
+                    cycle <= x"00" ;
+                else
+                    cycle <= cycle + 1 ;
+                END If ; 
     end process ; 
 
 end Behavioral;
