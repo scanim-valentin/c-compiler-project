@@ -38,8 +38,8 @@ end test_processeur_v1;
 architecture Behavioral of test_processeur_v1 is
     component processor is
         Port (
-        CLK : in STD_LOGIC;
-        PC : in STD_LOGIC_VECTOR (7 downto 0));
+        CLK : in STD_LOGIC
+        );
     end COMPONENT ;
     signal local_clk: STD_LOGIC := '1';
     signal local_pc: STD_LOGIC_VECTOR (7 downto 0);
@@ -49,8 +49,7 @@ architecture Behavioral of test_processeur_v1 is
     begin
     
     Label_uut: processor PORT MAP (
-    CLK => local_clk,
-    PC => local_pc
+    CLK => local_clk
     );
     
     Clock_process: process
@@ -59,13 +58,13 @@ architecture Behavioral of test_processeur_v1 is
             wait for Clock_period/2;
         end process;
         
-    Instruct_select: process
-    begin
-        for instruction_number in 0 to 15 loop
-            local_pc <= conv_std_logic_vector(instruction_number,local_pc'length);
-            wait for 50 ns ; 
-        end loop;
-    end process ; 
+--    Instruct_select: process
+--    begin
+--        for instruction_number in 0 to 15 loop
+--            local_pc <= conv_std_logic_vector(instruction_number,local_pc'length);
+--            wait for 50 ns ; 
+--        end loop;
+--    end process ; 
 
 --    local_pc <= X"00" after 50ns, X"01" after 100ns, X"02" after 150ns, X"03" after 200ns, X"04" after 250ns, X"05" after 300ns;
 end Behavioral;

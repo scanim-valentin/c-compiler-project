@@ -1,10 +1,6 @@
 main()
 {
-	int i = 0 ;
-	while(i < 10){
-		i = 1 + i ;
-		printf(i*i > i+i) ;
-	}
-
+	printf(1+1+1+1+1+1+1+1) ;
+	printf(34/(1+2*2*2+6*2*2+1)) ;
 }
 

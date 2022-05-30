@@ -13,7 +13,7 @@
 "main()" return tMain  ;
 "+" return tPlus ;
 "-" return tMinus ;
-"*" return tMult ;
+"*" return tStar ;
 "/" return tDiv ;
 "==" return tEqual;
 "<" return tInf ;

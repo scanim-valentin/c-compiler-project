@@ -20,7 +20,7 @@ void yyerror(char *s);
 
     Bloc : tOpeningBracket { initBloc_TdS() ;} Corps tClosingBracket { expungeBloc_TdS() ;} ;
 
-    Corps : Ligne Corps | BlocBased {printf("Post Bloc Corps\n");}  Corps | ;
+    Corps : Ligne Corps | BlocBased  Corps | ;
 
     Ligne : ContenuLigne tPointVirgule ;
     
@@ -30,7 +30,7 @@ void yyerror(char *s);
 
     InstructionIfElse : tIf tOpeningParenthesis Prio0Arith tClosingParenthesis { Parse_If() ; } Bloc { Parse_Else() ; } InstructionElse { Parse_EndElse() ; };
     
-    InstructionElse : tElse {printf("tElse\n");}  Bloc {printf("Post Bloc Instruction Else\n");}  | ;
+    InstructionElse : tElse  Bloc  | ;
 
     InstructionWhile : tWhile { Parse_InitWhile() ; } tOpeningParenthesis Prio0Arith tClosingParenthesis { Parse_While() ; } Bloc { Parse_EndWhile() ; };
 
@@ -45,16 +45,6 @@ void yyerror(char *s);
                     | tDeclareInt { $$ = "int" ; }
                     ;
 
-                    /*
-    Type : PrimitiveType { $$ = $1 ; }
-         | Type tStar { increaseDimensions_TdS() ; }
-         ;
-
-    PrimitiveType : tDeclareConstInt { $$ = "const_int" ; }
-                    | tDeclareInt { $$ = "int" ; }
-                ;
-                */
-
     VarName : tVarName tVirgule VarName { $$ = $1 ;}
             | tVarName { $$ = $1 ; }
             ;
@@ -62,20 +52,20 @@ void yyerror(char *s);
     Assignation : tVarName tAssign Prio0Arith { Parse_Copy($1) ; }
                 ;
 
-    // Comparaison
+    // Comparaison 
     Prio0Arith : Prio1Arith tSup Prio1Arith { Parse_Arith(SUP) ; }
                  | Prio1Arith tInf Prio1Arith { Parse_Arith(INF) ; }
                  | Prio1Arith tEqual Prio1Arith { Parse_Arith(EQU) ; }
                  | Prio1Arith ;
 
     // Addition et Soustraction
-    Prio1Arith : Prio2Arith tPlus Prio2Arith { Parse_Arith(ADD) ; }
-                 | Prio2Arith tMinus Prio2Arith { Parse_Arith(SOU) ; }
+    Prio1Arith : Prio1Arith tPlus Prio2Arith { Parse_Arith(ADD) ; }
+                 | Prio1Arith tMinus Prio2Arith { Parse_Arith(SOU) ; }
                  | Prio2Arith ;
     
     // Division et Multiplication
-    Prio2Arith : Prio3Arith tDiv Prio3Arith { Parse_Arith(DIV) ; }
-           | Prio3Arith tStar Prio3Arith { Parse_Arith(MUL) ; }
+    Prio2Arith : Prio2Arith tDiv Prio3Arith { Parse_Arith(DIV) ; }
+           | Prio2Arith tStar Prio3Arith { Parse_Arith(MUL) ; }
            | Prio3Arith ;
 
     // Referencement et dereferencement
