@@ -199,20 +199,29 @@ begin
     RST_DATA <= '1' ;
     OP_in_mem_re <= OP_out_ex_mem ; 
     A_in_mem_re  <= A_out_ex_mem ;
-    B_in_mem_re  <= B_out_ex_mem ;
-    C_in_mem_re  <= C_out_ex_mem ;
+    --B_in_mem_re  <= B_out_ex_mem ;
+    --C_in_mem_re  <= C_out_ex_mem ;
     
---    RW_DATA <= '1' when OP_out_ex_mem =  X"07" else '0' when OP_out_ex_mem =  X"08";
---    ADR_DATA <= B_out_ex_mem when OP_out_ex_mem =  X"07" else A_out_ex_mem when OP_out_ex_mem =  X"08";
---    IN_DATA <= B_out_ex_mem  when OP_out_ex_mem =  X"08";
---    B_in_mem_re <= OUT_DATA when OP_out_ex_mem =  X"07" else B_out_ex_mem   ; 
+    RW_DATA <= '1' when OP_out_ex_mem =  X"07" else '0' when OP_out_ex_mem =  X"08";
+    ADR_DATA <= B_out_ex_mem when OP_out_ex_mem =  X"07" else A_out_ex_mem when OP_out_ex_mem =  X"08";
+    IN_DATA <= B_out_ex_mem  when OP_out_ex_mem =  X"08";
+    B_in_mem_re <= OUT_DATA when OP_out_ex_mem =  X"07" else B_out_ex_mem   ; 
     
     --5eme etage 
     -- On ne modifie pas de registre dans le cas du STORE
-    W_register <= '0' when (OP_in_mem_re = X"08" 
-                         or OP_in_mem_re = X"00") 
-             else '1' ;
-               
+    LC_W_REGISTER:process 
+    begin 
+        wait until CLK'event and CLK = '1' ;
+            if(OP_in_mem_re = X"08" or OP_in_mem_re = X"00") then
+                W_register <= '0' ;
+            else
+                W_register <= '1' ;
+            end if ;   
+    end process ;
+    --W_register <= '0' when (OP_in_mem_re = X"08" 
+    --                     or OP_in_mem_re = X"00") 
+     --        else '1' ;
+      --         end process ; 
     Addr_W_register <= A_out_mem_re(3 downto 0) ; 
     DATA_register <= B_out_mem_re;
     
